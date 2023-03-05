@@ -1,0 +1,198 @@
+.login_one {
+  width: 50rem;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login_two {
+  display: flex;
+  background: var(--color-white);
+  height: 80%;
+  width: 100%;
+}
+
+.login_three {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.login_four {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.login_four img {
+  width: 100%;
+}
+
+.login_five {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.login_five svg {
+  font-size: 1.35rem;
+}
+
+.login_six {
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 1.2rem;
+}
+
+.login_six h3 {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.login_six p {
+  font-size: 0.8rem;
+  color: var(--color-grey-dark);
+}
+
+.login_six button {
+  background: transparent;
+  border: 1.5px solid var(--color-black);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 0.8rem;
+  border-radius: 5px;
+  transition: 500ms;
+}
+
+.login_six button:hover {
+  background: var(--color-black);
+  color: var(--color-white);
+  transform: translateY(-5px);
+}
+
+.login_six form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.login_six form label {
+  display: flex;
+  flex-direction: column;
+  color: var(--color-grey-dark);
+  margin-top: 0.4rem;
+}
+
+.login_six form label input {
+  all: unset;
+  border-bottom: 1px solid var(--color-grey-dark);
+  color: var(--color-black);
+  cursor: text;
+}
+
+.login_six form label input:focus {
+  border-bottom: 1px solid var(--color-black);
+}
+
+.login_six form button {
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.login_six form button:hover {
+  transform: translateY(0);
+}
+
+.login_seven {
+  display: flex;
+  width: 100%;
+  margin-top: 0.6rem;
+  align-items: center;
+}
+
+.login_seven p {
+  padding: 0rem 4px;
+}
+
+.login_eight {
+  width: 50%;
+  background-color: var(--color-grey-dark);
+  height: 1px;
+}
+
+.login_nine {
+  color: var(--color-black);
+  margin-top: 0.3rem;
+  text-align: right;
+}
+
+.login_ten {
+  text-align: center;
+  margin-top: 0.6rem;
+  font-size: 1rem;
+}
+
+.login_six form p {
+  color: var(--color-red);
+  text-align: center;
+  margin-top: 0.3rem;
+}
+
+.errorInput {
+  display: none;
+}
+
+@media (max-width: 767px) {
+  .login_one {
+    width: 25rem;
+  }
+
+  .login_two {
+    height: auto;
+  }
+
+  .login_three {
+    width: 100%;
+  }
+
+  .login_four {
+    width: 0%;
+  }
+
+  .login_four img {
+    display: none;
+  }
+
+  .login_six button {
+    margin-top: 1rem;
+  }
+
+  .login_six form label {
+    margin-top: 0.6rem;
+  }
+
+  .login_seven {
+    margin-top: 1rem;
+  }
+
+  .login_nine {
+    margin-top: 1rem;
+  }
+
+  .login_ten {
+    margin-top: 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .login_one {
+    width: 20rem;
+  }
+}

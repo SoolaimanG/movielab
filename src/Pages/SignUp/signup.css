@@ -1,0 +1,186 @@
+.signup_one {
+  width: 50rem;
+  margin: auto;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup_two {
+  display: flex;
+  background: var(--color-white);
+  height: fit-content;
+  width: 100%;
+}
+
+.signup_three {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.signup_four {
+  width: 100%;
+}
+
+.signup_five {
+  width: 80%;
+  padding: 0rem 1rem;
+  margin: auto;
+  height: fit-content;
+}
+
+.signup_six {
+  margin-top: 1rem;
+}
+
+.signup_six h3 {
+  font-weight: 500;
+  font-size: 1.6rem;
+}
+
+.signup_six p {
+  font-size: 0.9rem;
+  color: var(--color-grey-dark);
+}
+
+.signup_six form {
+  margin-top: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.signup_six form label {
+  display: flex;
+  flex-direction: column;
+  margin-top: 0.3rem;
+}
+
+.signup_six form label input {
+  all: unset;
+  border-bottom: 1.5px solid var(--color-grey-dark);
+}
+
+.signup_six form label input:focus {
+  border-bottom: 1.5px solid var(--color-black);
+}
+.signup_seven {
+  width: 100%;
+}
+
+.signup_eight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup_eight img {
+  width: 20rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.signup_eight h3 {
+  font-size: 1.2rem;
+  width: 100%;
+  font-weight: 500;
+  text-align: center;
+}
+
+.create-acct {
+  text-align: center;
+  background: var(--color-black);
+  color: var(--color-white);
+  margin-top: 0.7rem;
+  border-radius: 5px;
+}
+
+.google-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 1.5px solid #252525;
+  gap: 5px;
+  padding: 9px 15px;
+  border-radius: 3px;
+  transition: all 500ms;
+}
+
+.google-btn:hover {
+  -webkit-box-shadow: 3px 3px 10px 3px #dddddd;
+  -moz-box-shadow: 3px 3px 10px 3px #dddddd;
+  box-shadow: 3px 3px 10px 3px #dddddd;
+}
+
+.exist-acct {
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.login-acct {
+  text-decoration: underline;
+  color: var(--color-black);
+}
+
+/* Carosel styles */
+
+.swiper-button-prev {
+  display: none;
+}
+
+.swiper-button-prev::after {
+  display: none;
+}
+
+.swiper-button-next {
+  display: none;
+}
+
+.swiper-button-next::after {
+  display: none;
+}
+
+.swiper-scrollbar {
+  display: none;
+}
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets,
+.swiper-pagination-horizontal {
+  margin-top: 1.5rem;
+}
+
+/* Media query(Tabs and Mobile) */
+@media (max-width: 767px) {
+  .signup_one {
+    width: 30rem;
+  }
+
+  .signup_two {
+    padding: 2rem;
+  }
+
+  .signup_three {
+    grid-template-columns: 100%;
+  }
+
+  .signup_five {
+    display: none;
+  }
+}
+
+@media (max-width: 500px) {
+  .signup_one {
+    width: 21rem;
+  }
+
+  .signup_two {
+    padding: 2rem;
+  }
+}

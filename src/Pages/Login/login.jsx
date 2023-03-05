@@ -5,12 +5,18 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { auth } from "../../Logic/firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import {
+  signInWithEmailAndPassword,
+  signInWithPopup,
+  GoogleAuthProvider,
+} from "firebase/auth";
 
 const Login = () => {
   //UseState for Firebase Authentication
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const provider = new GoogleAuthProvider();
 
   //Erorr State
   const [error, setError] = useState(false);
@@ -32,6 +38,17 @@ const Login = () => {
       });
   };
 
+  //Google Authentication
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+      })
+      .catch(() => {});
+  };
+
   return (
     <div className="login_one">
       <div className="login_two padding">
@@ -40,7 +57,7 @@ const Login = () => {
           <div className="login_six padding">
             <h3>Welcome Back Soolaiman,</h3>
             <p>Welcome back! please enter your details.</p>
-            <button className="btn-one">
+            <button onClick={signInWithGoogle} className="btn-one">
               <FcGoogle />
               Log in with Google
             </button>

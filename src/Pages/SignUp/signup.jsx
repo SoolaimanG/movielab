@@ -2,19 +2,45 @@ import Logo from "../../Components/logo";
 import "./signup.css";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { auth, db } from "../../Logic/firebase";
 import Download from "../../Images/movieLab download.svg";
 import Security from "../../Images/movieLab security.svg";
 import Cinema from "../../Images/movieLab cinema.svg";
 import { Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useEffect, useState } from "react";
+import { collection, doc, setDoc } from "firebase/firestore";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  createUserWithEmailAndPassword,
+} from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { login } from "../../Redux/allSlice";
 
 //Swiper Styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+import BasicModal from "../../Components/modalone";
 
 const SignUp = () => {
+  //UseState for auth
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [username, setUsername] = useState("");
+  const [disabled, setDisabled] = useState(false);
+  const [userID, setUserID] = useState("");
+
+  //UseDisbatch
+  const dispatch = useDispatch();
+
+  //Google Auth
+  const provider = new GoogleAuthProvider();
+
+  const colRef = collection(db, "users");
+
   //Info About Movie Lab
   const signUp_info = [
     {
@@ -35,6 +61,63 @@ const SignUp = () => {
     },
   ];
 
+  useEffect(() => {
+    //Reggex
+    const specialCharacters = /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+    const upperCase = /[A-Z]/;
+    const lowerCase = /[a-z]/;
+    const numbers = /[0-9]/;
+
+    const testSpecial = specialCharacters.test(password);
+    const testUppercase = upperCase.test(password);
+    const testLowercase = lowerCase.test(password);
+    const testNumber = numbers.test(password);
+    //conditionally test
+    if (testSpecial && testUppercase && testLowercase && testNumber) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+
+    return () => {
+      console.log("Clean-up");
+    };
+  }, [password]);
+
+  //creating new Account
+  const createAccount = (e) => {
+    e.preventDefault();
+
+    //Fnction from firebase
+    if (disabled) {
+      createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          const { email, uid } = user;
+          setUserID(uid);
+          console.log(uid);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+      return;
+    }
+  };
+
+  //Signin or Login with Google
+  const signInWithGoogle = () => {
+    signInWithPopup(auth, provider)
+      .then((result) => {
+        const credential = GoogleAuthProvider.credentialFromResult(result);
+        const token = credential.accessToken;
+        const user = result.user;
+        dispatch(login());
+      })
+      .catch(() => {});
+  };
+
   return (
     <div className="signup_one">
       <div className="signup_two padding">
@@ -42,25 +125,48 @@ const SignUp = () => {
           <div className="signup_four">
             <Logo />
             <div className="signup_six">
+              <div className="info_about_password">
+                <BasicModal />
+              </div>
               <h3>Create an account.</h3>
               <p>Let's get started by filling the form below</p>
-              <form action="">
+              <form onSubmit={createAccount} action="">
                 <label htmlFor="">
                   Username
-                  <input type="text" />
+                  <input
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    type="text"
+                  />
                 </label>
                 <label htmlFor="">
                   Email
-                  <input type="text" />
+                  <input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    type="email"
+                  />
                 </label>
                 <label htmlFor="">
                   Password
-                  <input type="text" />
+                  <input
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    type="text"
+                  />
                 </label>
-                <button className="btn-one create-acct" type="submit">
+                <button
+                  disabled={!disabled}
+                  className="btn-one create-acct"
+                  type="submit"
+                >
                   Create Account
                 </button>
-                <button className="btn-one google-btn">
+                <button
+                  onClick={signInWithGoogle}
+                  type="button"
+                  className="btn-one google-btn"
+                >
                   <FcGoogle />
                   Log in with Google
                 </button>
@@ -74,13 +180,12 @@ const SignUp = () => {
             </div>
           </div>
           <div className="signup_five">
+            <BasicModal />
             <Swiper
               modules={[Pagination, A11y]}
               spaceBetween={10}
               slidesPerView={1}
-              navigation
               pagination={{ clickable: true }}
-              scrollbar={{ draggable: true }}
               onSwiper={(swiper) => console.log(swiper)}
               onSlideChange={() => console.log("slide change")}
               className="signup_seven"

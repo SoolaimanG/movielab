@@ -6,7 +6,7 @@ import { SelectedAll } from "./Redux/allSlice";
 import SignUp from "./Pages/SignUp/signup";
 
 const App = () => {
-  const condition = useSelector(SelectedAll);
+  const condition = useSelector(SelectedAll).condition;
 
   //Function For Protecting Routes
   const Protection = ({ children }) => {

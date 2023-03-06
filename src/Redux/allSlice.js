@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { useEffect } from "react";
 
 const initialState = {
-  condition: false,
+  condition: localStorage.getItem("userLogin") || false,
   openModal: false,
   userEmail: "",
   uid: "",

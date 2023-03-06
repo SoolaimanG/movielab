@@ -72,6 +72,13 @@
 .signup_six form label input:focus {
   border-bottom: 1.5px solid var(--color-black);
 }
+
+.signup_six form span {
+  color: var(--color-red);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
 .signup_seven {
   width: 100%;
 }
@@ -104,6 +111,7 @@
   color: var(--color-white);
   margin-top: 1rem;
   border-radius: 5px;
+  padding: 10px 0px;
 }
 
 .create-acct:disabled {

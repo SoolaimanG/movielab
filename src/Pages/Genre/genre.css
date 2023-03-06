@@ -1,0 +1,120 @@
+.genre_one {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 50rem;
+  margin: auto;
+}
+
+.genre_two {
+  background-color: var(--color-white);
+  width: 100%;
+  height: auto;
+}
+
+.genre_two h3 {
+  text-transform: capitalize;
+  font-size: 1.4rem;
+}
+
+.genre_two p {
+  text-align: left;
+  font-size: 1.2rem;
+}
+
+.genre_three {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+.genre_four {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 25px;
+}
+
+.genre_four span {
+  border: 1.5px solid var(--color-grey-dark);
+  padding: 0.5rem;
+  cursor: pointer;
+  transition: all linear 500ms;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.genre_four span:hover {
+  border: 1.5px solid var(--color-black);
+}
+
+.genre_four span svg {
+  font-size: 0.9rem;
+}
+
+.genreIsSelected {
+  font-weight: 600;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1.5px solid var(--color-grey-dark);
+}
+
+.genreIsSelected svg {
+  color: var(--color-white);
+}
+
+.genre_five {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin-top: 4rem;
+  gap: 5px;
+}
+
+.skipgenre {
+  all: unset;
+  border: 1.5px solid var(--color-black);
+  padding: 8px 25px;
+  transition: all 500ms;
+}
+
+.donegenre {
+  all: unset;
+  padding: 8px 25px;
+  background: var(--color-black);
+  color: var(--color-white);
+  border: 1.5px solid var(--color-black);
+  transition: all 500ms;
+}
+
+.skipgenre:hover,
+.donegenre:hover {
+  transform: translateY(-5px);
+}
+
+/* MEDIA QUERY */
+@media (max-width: 767px) {
+  .genre_one {
+    width: 23rem;
+  }
+}
+
+@media (max-width: 378px) {
+  .genre_one {
+    width: 21.5rem;
+  }
+}
+
+/* Media query for samsung s9 */
+@media (max-width: 320px) {
+  .genre_one {
+    width: 18.5rem;
+    height: auto;
+  }
+
+  .genre_two {
+    height: auto;
+  }
+}

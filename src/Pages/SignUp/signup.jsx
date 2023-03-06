@@ -1,7 +1,7 @@
 import Logo from "../../Components/logo";
 import "./signup.css";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../../Logic/firebase";
 import Download from "../../Images/movieLab download.svg";
 import Security from "../../Images/movieLab security.svg";
@@ -9,7 +9,7 @@ import Cinema from "../../Images/movieLab cinema.svg";
 import { Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
-import { collection, doc, setDoc } from "firebase/firestore";
+import { doc, setDoc } from "firebase/firestore";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -31,15 +31,14 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [username, setUsername] = useState("");
   const [disabled, setDisabled] = useState(false);
-  const [userID, setUserID] = useState("");
+  const [emailActive, setEmailActive] = useState(false);
 
   //UseDisbatch
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   //Google Auth
   const provider = new GoogleAuthProvider();
-
-  const colRef = collection(db, "users");
 
   //Info About Movie Lab
   const signUp_info = [
@@ -72,8 +71,18 @@ const SignUp = () => {
     const testUppercase = upperCase.test(password);
     const testLowercase = lowerCase.test(password);
     const testNumber = numbers.test(password);
+    const testLength = password.length >= 8;
+    const testUsername = username.length > 0;
+
     //conditionally test
-    if (testSpecial && testUppercase && testLowercase && testNumber) {
+    if (
+      testSpecial &&
+      testUppercase &&
+      testLowercase &&
+      testNumber &&
+      testLength &&
+      testUsername
+    ) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -82,7 +91,7 @@ const SignUp = () => {
     return () => {
       console.log("Clean-up");
     };
-  }, [password]);
+  }, [password, username]);
 
   //creating new Account
   const createAccount = (e) => {
@@ -95,11 +104,18 @@ const SignUp = () => {
           // Signed in
           const user = userCredential.user;
           const { email, uid } = user;
-          setUserID(uid);
-          console.log(uid);
+
+          //settting doc
+          const docRef = doc(db, "users", uid);
+          setDoc(docRef, {
+            displayname: username,
+            email: email,
+          });
         })
         .catch((error) => {
-          console.log(error);
+          setEmailActive(
+            error.message === "Firebase: Error (auth/email-already-in-use)."
+          );
         });
 
       return;
@@ -113,7 +129,9 @@ const SignUp = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        console.log(user);
         dispatch(login());
+        navigate("/genre");
       })
       .catch(() => {});
   };
@@ -155,6 +173,9 @@ const SignUp = () => {
                     type="text"
                   />
                 </label>
+                <span>
+                  {emailActive && "Seems you have an account already."}
+                </span>
                 <button
                   disabled={!disabled}
                   className="btn-one create-acct"

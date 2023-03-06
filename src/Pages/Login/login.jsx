@@ -2,25 +2,38 @@ import "./login.css";
 import LoginImage from "../../Images/LoginImage.svg";
 import Logo from "../../Components/logo";
 import { FcGoogle } from "react-icons/fc";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { login, logout } from "../../Redux/allSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from "react";
 import { auth } from "../../Logic/firebase";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { SelectedAll } from "../../Redux/allSlice";
 
 const Login = () => {
   //UseState for Firebase Authentication
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  //useSelector
+  const isUserLoggedIn = useSelector(SelectedAll).condition;
+  console.log(isUserLoggedIn);
+
+  //Google Auth Provider
   const provider = new GoogleAuthProvider();
 
   //Erorr State
   const [error, setError] = useState(false);
 
+  //UseDispatch and UseNavigate
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  //Function for Login
   const loginUser = (e) => {
     e.preventDefault();
 
@@ -31,12 +44,20 @@ const Login = () => {
         const user = userCredential.user;
         const { uid, email } = user;
         console.log(uid, email);
+        dispatch(login());
+        navigate("/home");
       })
       .catch(() => {
         setError(true);
-        console.log(error);
+        dispatch(logout());
+        navigate("/genre");
       });
   };
+
+  useEffect(() => {
+    if (isUserLoggedIn)
+      localStorage.setItem("userLogin", JSON.stringify(isUserLoggedIn));
+  }, [isUserLoggedIn]);
 
   //Google Authentication
   const signInWithGoogle = () => {
@@ -45,6 +66,8 @@ const Login = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        dispatch(login());
+        navigate("/genre");
       })
       .catch(() => {});
   };
@@ -94,7 +117,9 @@ const Login = () => {
                 />
               </label>
               <p className={error ? "" : "errorInput"}>Invalid Input!</p>
-              <Link className="login_nine">Forget Password?</Link>
+              <Link to={"/forgetpassword"} className="login_nine">
+                Forget Password?
+              </Link>
               <button className="btn-one" type="submit">
                 Sign In
               </button>

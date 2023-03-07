@@ -17,6 +17,7 @@ import {
 } from "firebase/auth";
 import { useDispatch } from "react-redux";
 import { login } from "../../Redux/allSlice";
+import { toast, Toaster } from "react-hot-toast";
 
 //Swiper Styles
 import "swiper/css";
@@ -32,6 +33,7 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [emailActive, setEmailActive] = useState(false);
+  const [acctCreated, setAcctCreated] = useState(false);
 
   //UseDisbatch
   const dispatch = useDispatch();
@@ -111,11 +113,14 @@ const SignUp = () => {
             displayname: username,
             email: email,
           });
+          setAcctCreated(true);
+          toast.success("Account Created");
         })
         .catch((error) => {
           setEmailActive(
             error.message === "Firebase: Error (auth/email-already-in-use)."
           );
+          toast.error(error.message);
         });
 
       return;
@@ -129,15 +134,17 @@ const SignUp = () => {
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
-        console.log(user);
         dispatch(login());
         navigate("/genre");
       })
-      .catch(() => {});
+      .catch(() => {
+        toast.error("Check your connection");
+      });
   };
 
   return (
     <div className="signup_one">
+      <Toaster />
       <div className="signup_two padding">
         <div className="signup_three">
           <div className="signup_four">
@@ -173,8 +180,11 @@ const SignUp = () => {
                     type="text"
                   />
                 </label>
-                <span>
+                <span className="emailActive">
                   {emailActive && "Seems you have an account already."}
+                </span>
+                <span className="acctCreated">
+                  {acctCreated && "Proceed to login"}
                 </span>
                 <button
                   disabled={!disabled}
@@ -184,7 +194,10 @@ const SignUp = () => {
                   Create Account
                 </button>
                 <button
-                  onClick={signInWithGoogle}
+                  onClick={() => {
+                    signInWithGoogle();
+                    toast.loading("Creating Account...");
+                  }}
                   type="button"
                   className="btn-one google-btn"
                 >

@@ -73,8 +73,14 @@
   border-bottom: 1.5px solid var(--color-black);
 }
 
-.signup_six form span {
+.emailActive {
   color: var(--color-red);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.acctCreated {
+  color: var(--color-green);
   font-size: 0.9rem;
   text-align: center;
 }

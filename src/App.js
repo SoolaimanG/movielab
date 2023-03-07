@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { SelectedAll } from "./Redux/allSlice";
 import SignUp from "./Pages/SignUp/signup";
 import ForgetPassword from "./Pages/ForgetPassword/forgetpassword";
+import Home from "./Pages/Home/home";
 import Genre from "./Pages/Genre/genre";
 
 const App = () => {
@@ -26,6 +27,14 @@ const App = () => {
           element={
             <Protection>
               <Genre />
+            </Protection>
+          }
+        />
+        <Route
+          path="/home"
+          element={
+            <Protection>
+              <Home />
             </Protection>
           }
         />

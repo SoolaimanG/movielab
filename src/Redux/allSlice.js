@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { useEffect } from "react";
 
 const initialState = {
-  condition: localStorage.getItem("userLogin") || false,
+  condition: JSON.parse(localStorage.getItem("userLogin")) || false,
   openModal: false,
   userEmail: "",
-  uid: "",
+  userGenre: [],
+  openModalGenre: false,
+  uid: JSON.parse(localStorage.getItem("uid")) || "",
 };
 
 const allSlice = createSlice({
@@ -29,11 +30,36 @@ const allSlice = createSlice({
       state.userEmail = email;
       state.uid = uid;
     },
+    updateGenre: (state, action) => {
+      state.userGenre = [...state.userGenre, ...action.payload];
+    },
+    clearGenre: (state) => {
+      state.userGenre = [];
+    },
+    isModalGenreOpen: (state) => {
+      state.openModalGenre = true;
+    },
+    isModalGenreClose: (state) => {
+      state.openModalGenre = false;
+    },
+    addUID: (state, action) => {
+      state.uid = action.payload;
+    },
   },
 });
 
 export const SelectedAll = (state) => state.all;
 
-export const { login, logout, isModalOpen, isModalClose, updateUser } =
-  allSlice.actions;
+export const {
+  login,
+  logout,
+  isModalOpen,
+  isModalClose,
+  updateUser,
+  updateGenre,
+  isModalGenreClose,
+  isModalGenreOpen,
+  clearGenre,
+  addUID,
+} = allSlice.actions;
 export default allSlice.reducer;

@@ -2,12 +2,16 @@ import "./genre.css";
 import { movieGenres } from "../../data";
 import { useState } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
+import BasicModalTwo from "../../Components/modaltwo";
+import { useNavigate } from "react-router-dom";
 
 const Genre = () => {
   //state for storing user genres
   const [userGenres, setUserGenres] = useState([]);
-  const [userGenresTwo, setUserGenresTwo] = useState([]);
   const [movieGenre, setMovieGenre] = useState(movieGenres);
+
+  //using useNavigate
+  const navigate = useNavigate();
 
   //adding highlight to selected genre
   const selectedGenre = (id) => {
@@ -24,18 +28,15 @@ const Genre = () => {
       })
     );
 
-    setUserGenres(
-      movieGenre
-        .filter((genre) => genre.id === id)
-        .map((genre) => {
-          return genre.id === id && !genre.condition
-            ? setUserGenresTwo((prev) => [...prev, genre.name])
-            : "";
-        })
-    );
+    const selectedGenreTwo = movieGenre.find((genre) => genre.id === id);
+    if (!selectedGenreTwo.condition) {
+      setUserGenres((prev) => [...prev, selectedGenreTwo]);
+    } else {
+      setUserGenres((prev) =>
+        prev.filter((genre) => genre.id !== selectedGenreTwo.id)
+      );
+    }
   };
-
-  console.log(userGenresTwo);
 
   return (
     <div className="genre_one">
@@ -61,8 +62,15 @@ const Genre = () => {
             })}
           </div>
           <div className="genre_five">
-            <button className="skipgenre">Skip</button>
-            <button className="donegenre">Done</button>
+            <button
+              onClick={() => {
+                navigate("/home");
+              }}
+              className="skipgenre"
+            >
+              Skip
+            </button>
+            <BasicModalTwo userGenres={userGenres} />
           </div>
         </div>
       </div>

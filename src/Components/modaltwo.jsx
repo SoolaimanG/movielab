@@ -27,7 +27,7 @@ const style = {
   borderRadius: "5px",
 };
 
-function BasicModalTwo({ userGenres }) {
+function BasicModalTwo({ userGenres, setUserGenres }) {
   //isOpen should be false from default
   const isopen = useSelector(SelectedAll).openModalGenre;
   const userGenre = useSelector(SelectedAll).userGenre;
@@ -47,6 +47,7 @@ function BasicModalTwo({ userGenres }) {
   };
   const handleClose = () => {
     dispatch(isModalGenreClose());
+    setUserGenres([]);
   };
 
   //Mapping through user genre
@@ -67,9 +68,9 @@ function BasicModalTwo({ userGenres }) {
         }),
       });
       setSychrous(true);
-      toast.loading("Adding");
-    } catch (error) {
-      toast.error("Unable to add your genres");
+      toast.loading("Adding your genre(s)");
+    } catch (err) {
+      toast.error(err.message);
     }
   };
 
@@ -77,13 +78,13 @@ function BasicModalTwo({ userGenres }) {
   useEffect(() => {
     if (sychronous) {
       const timer = setTimeout(() => {
-        toast.dismiss();
         navigate("/home");
         handleClose();
       }, 4000);
 
       return () => {
         clearTimeout(timer);
+        toast.dismiss();
         setSychrous(false);
       };
     }

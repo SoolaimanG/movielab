@@ -70,7 +70,10 @@ const Genre = () => {
             >
               Skip
             </button>
-            <BasicModalTwo userGenres={userGenres} />
+            <BasicModalTwo
+              userGenres={userGenres}
+              setUserGenres={setUserGenres}
+            />
           </div>
         </div>
       </div>

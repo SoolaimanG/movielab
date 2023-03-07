@@ -6,12 +6,13 @@ import { Link, useNavigate } from "react-router-dom";
 import { login, logout, addUID } from "../../Redux/allSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { auth } from "../../Logic/firebase";
+import { auth, db } from "../../Logic/firebase";
 import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
+import { doc, getDoc } from "firebase/firestore";
 import { SelectedAll } from "../../Redux/allSlice";
 import { toast, Toaster } from "react-hot-toast";
 
@@ -20,6 +21,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loadingone, setLoadingone] = useState(false);
+  const [popData, setPopData] = useState([]);
 
   //useSelector
   const isUserLoggedIn = useSelector(SelectedAll).condition;
@@ -36,6 +38,31 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  //Document Reference
+  const docRef = doc(db, "users", uid);
+
+  //Function to check if user already has a genres
+  const genreExist = async () => {
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      console.log("Document data:", docSnap.data());
+      const { genres } = docSnap.data();
+      setPopData(genres);
+    } else {
+      // doc.data() will be undefined in this case
+      setPopData([]);
+    }
+  };
+
+  useEffect(() => {
+    genreExist();
+
+    return () => {
+      console.log("Check Complete");
+    };
+  }, []);
+
   //Function for Login
   const loginUser = (e) => {
     e.preventDefault();
@@ -48,14 +75,13 @@ const Login = () => {
         console.log(uid, email);
         dispatch(login());
         dispatch(addUID(uid));
-        navigate("/genre");
+        navigate(`${popData ? "/home" : "/genre"}`);
         toast.loading("Logging in...");
       })
       .catch((err) => {
         setError(true);
         dispatch(logout());
         toast.error(err.message);
-        console.log(err);
       });
   };
 
@@ -74,13 +100,12 @@ const Login = () => {
         const token = credential.accessToken;
         const user = result.user;
         dispatch(login());
-        navigate("/genre");
+        navigate(`${popData ? "/home" : "/genre"}`);
         setLoadingone(false);
       })
       .catch((err) => {
         toast.error(err.message);
         setLoadingone(false);
-        console.log(err.message);
       });
   };
 

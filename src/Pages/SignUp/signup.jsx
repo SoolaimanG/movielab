@@ -115,6 +115,7 @@ const SignUp = () => {
           });
           setAcctCreated(true);
           toast.success("Account Created");
+          setEmailActive(false);
         })
         .catch((error) => {
           setEmailActive(
@@ -136,9 +137,13 @@ const SignUp = () => {
         const user = result.user;
         dispatch(login());
         navigate("/genre");
+        setTimeout(() => {
+          toast.dismiss();
+        }, 2000);
       })
       .catch(() => {
         toast.error("Check your connection");
+        toast.dismiss();
       });
   };
 

@@ -64,7 +64,7 @@ function BasicModalTwo({ userGenres, setUserGenres }) {
     try {
       await setDoc(docRef, {
         genres: userGenre.map((genre) => {
-          return genre.name;
+          return genre;
         }),
       });
       setSychrous(true);

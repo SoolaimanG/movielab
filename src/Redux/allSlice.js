@@ -61,5 +61,6 @@ export const {
   isModalGenreOpen,
   clearGenre,
   addUID,
+  isMenuOpen,
 } = allSlice.actions;
 export default allSlice.reducer;

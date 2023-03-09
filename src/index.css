@@ -15,6 +15,12 @@ body {
   width: 100vw;
   height: 100vh;
   background: var(--color-black);
+
+  scroll-behavior: smooth;
+}
+
+::-webkit-scrollbar {
+  display: none;
 }
 
 .padding {
@@ -29,6 +35,8 @@ body {
   --color-red-light: #fa9494;
   --color-grey-dark: #b2b2b2;
   --color-green: #06ff00;
+  --color-black-light: #3b3b3b;
+  --color-red-dark: #660101;
 
   --swiper-theme-color: #252525;
 }

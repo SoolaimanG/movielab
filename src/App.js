@@ -7,6 +7,12 @@ import SignUp from "./Pages/SignUp/signup";
 import ForgetPassword from "./Pages/ForgetPassword/forgetpassword";
 import Home from "./Pages/Home/home";
 import Genre from "./Pages/Genre/genre";
+import GenrePage from "../src/Pages/GenrePage/genrepage";
+import Review from "./Pages/Review/review";
+import Setting from "./Pages/Settings/settings";
+import WatchList from "./Pages/WatchList/watchlist";
+import ComingSoon from "./Pages/ComingSoon/comingsoon";
+import Support from "./Pages/Support/support";
 
 const App = () => {
   const condition = useSelector(SelectedAll).condition;
@@ -35,6 +41,54 @@ const App = () => {
           element={
             <Protection>
               <Home />
+            </Protection>
+          }
+        />
+        <Route
+          path="/genrepage"
+          element={
+            <Protection>
+              <GenrePage />
+            </Protection>
+          }
+        />
+        <Route
+          path="/review"
+          element={
+            <Protection>
+              <Review />
+            </Protection>
+          }
+        />
+        <Route
+          path="/settings"
+          element={
+            <Protection>
+              <Setting />
+            </Protection>
+          }
+        />
+        <Route
+          path="/watchlist"
+          element={
+            <Protection>
+              <WatchList />
+            </Protection>
+          }
+        />
+        <Route
+          path="/comingsoon"
+          element={
+            <Protection>
+              <ComingSoon />
+            </Protection>
+          }
+        />
+        <Route
+          path="/support"
+          element={
+            <Protection>
+              <Support />
             </Protection>
           }
         />

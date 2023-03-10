@@ -3,6 +3,7 @@ import { BsFillBellFill } from "react-icons/bs";
 import { CgMenuGridR } from "react-icons/cg";
 import NavbarPic from "../Images/movieLab Navbar Pic.jpg";
 import { useEffect, useState } from "react";
+import { toast, Toaster } from "react-hot-toast";
 
 const Navbar = ({ setOpenMenu }) => {
   //State for scroll
@@ -29,6 +30,7 @@ const Navbar = ({ setOpenMenu }) => {
 
   return (
     <div className={scroll ? "navbar_new_style" : "navbar_one"}>
+      <Toaster />
       <div className="navbar_two padding">
         <div className="navbar_three">
           <form className="navbar_form" action="">
@@ -47,7 +49,18 @@ const Navbar = ({ setOpenMenu }) => {
             >
               <CgMenuGridR />
             </button>
-            <button className="navbar_five navbar_bell" type="button">
+            <button
+              onClick={() => {
+                toast(
+                  "Make sure you follow me on social media and support me ",
+                  {
+                    duration: 6000,
+                  }
+                );
+              }}
+              className="navbar_five navbar_bell"
+              type="button"
+            >
               <BsFillBellFill />
               <div className="bell_notification"></div>
             </button>

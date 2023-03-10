@@ -154,21 +154,25 @@
 }
 
 /* Carosel styles */
+.swiper-wrapper,
+.swiper {
+  z-index: 0 !important;
+}
 
 .swiper-button-prev {
-  display: none;
+  color: var(--color-red);
 }
 
 .swiper-button-prev::after {
-  display: none;
+  color: var(--color-red);
 }
 
 .swiper-button-next {
-  display: none;
+  color: var(--color-red);
 }
 
 .swiper-button-next::after {
-  display: none;
+  color: var(--color-red);
 }
 
 .swiper-scrollbar {
@@ -179,6 +183,7 @@
 .swiper-pagination-bullets,
 .swiper-pagination-horizontal {
   margin-top: 1.5rem;
+  z-index: 0;
 }
 
 /* Modal Component Style */
@@ -265,5 +270,21 @@
 
   .signup_two {
     padding: 2rem;
+  }
+
+  .swiper-button-prev {
+    display: none;
+  }
+
+  .swiper-button-prev::after {
+    display: none;
+  }
+
+  .swiper-button-next {
+    display: none;
+  }
+
+  .swiper-button-next::after {
+    display: none;
   }
 }

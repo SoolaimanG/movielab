@@ -40,6 +40,7 @@ const Login = () => {
 
   //Document Reference
   const docRef = doc(db, "users", uid);
+  console.log(uid);
 
   //Function to check if user already has a genres
   const genreExist = async () => {
@@ -49,6 +50,7 @@ const Login = () => {
       console.log("Document data:", docSnap.data());
       const { genres } = docSnap.data();
       setPopData(genres);
+      console.log(genres);
     } else {
       // doc.data() will be undefined in this case
       setPopData([]);
@@ -57,7 +59,7 @@ const Login = () => {
 
   useEffect(() => {
     genreExist();
-
+    toast.dismiss();
     return () => {
       console.log("Check Complete");
     };
@@ -75,7 +77,7 @@ const Login = () => {
         console.log(uid, email);
         dispatch(login());
         dispatch(addUID(uid));
-        navigate(`${popData ? "/home" : "/genre"}`);
+        navigate(`${popData == undefined ? "/genre" : "/home"}`);
         toast.loading("Logging in...");
       })
       .catch((err) => {

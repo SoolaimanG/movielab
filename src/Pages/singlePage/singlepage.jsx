@@ -3,13 +3,23 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Sidebar from "../../Components/sidebar";
 import Navbar from "../../Components/navbar";
-import { BsFillPlayCircleFill } from "react-icons/bs";
 import { toast, Toaster } from "react-hot-toast";
 import movieURLNIN from "../../Images/movieLab noImgURL.avif";
 import { useNavigate } from "react-router-dom";
+import BasicModalThree from "../../Components/modalthree";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { SelectedAll } from "../../Redux/allSlice";
+import { db } from "../../Logic/firebase";
+import { useSelector } from "react-redux";
 
 const SinglePage = () => {
   const params = useParams();
+
+  //UID
+  const uid = useSelector(SelectedAll).uid;
+
+  //Doc Reference
+  const docRef = doc(db, "watchList", uid);
 
   //Opening and Closing Menu//Sroring DAta
   const [openMenu, setOpenMenu] = useState(false);
@@ -18,6 +28,11 @@ const SinglePage = () => {
   const [loading, setLoaading] = useState(true);
   const [displayErr, setDisplayErr] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
+  const [videoID, setVideoID] = useState("");
+  const [watchList, setWatchList] = useState(
+    JSON.parse(localStorage.getItem("watchList")) || []
+  );
+  const [test, setTest] = useState([]);
 
   //DESTRUCTING USE NAVIGATOR
   const navigate = useNavigate();
@@ -40,7 +55,19 @@ const SinglePage = () => {
     }
   };
 
-  console.log(params.id);
+  //Getting Video IDS
+  const getMovieVideos = async () => {
+    try {
+      const response = await fetch(
+        `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US`
+      );
+      const data = await response.json();
+      const { results } = data;
+      setVideoID(results[0].key);
+    } catch (error) {
+      toast.error("Oh no!Check your connection");
+    }
+  };
 
   //Movie Recommendations
   const movieRecommendations = async () => {
@@ -51,7 +78,7 @@ const SinglePage = () => {
       const { results } = data;
       setRecommendations(results);
     } catch (error) {
-      console.log(error.message);
+      toast.error("Connectivity issues");
     }
   };
 
@@ -64,12 +91,18 @@ const SinglePage = () => {
   useEffect(() => {
     requestCall();
     movieRecommendations();
+    getMovieVideos();
 
     return () => {
       console.log("unmounting/Cleaning up");
     };
   }, [params]);
 
+  useEffect(() => {
+    localStorage.setItem("watchList", JSON.stringify(watchList));
+  });
+
+  //INVOKING CALLS
   useEffect(() => {
     const requestCallTimer = setTimeout(() => {
       if (loading) {
@@ -82,6 +115,37 @@ const SinglePage = () => {
       clearTimeout(requestCallTimer);
     };
   }, []);
+
+  //Add to WatchList
+  const addToWatchList = async (id) => {
+    setWatchList((prev) => [...prev, ...storeData]);
+
+    const find = watchList.find((item) => {
+      return item.id === id;
+    });
+
+    if (find) {
+      toast.error("Movie Already In WatchList");
+    } else {
+      toast.success("Added to your watchlist");
+      await setDoc(docRef, {
+        watchLists: watchList.map((item) => {
+          return item;
+        }),
+      });
+    }
+  };
+
+  //useEffect(() => {
+  //  const selectedGenreTwo = movieGenre.find((genre) => genre.id === id);
+  //  if (!selectedGenreTwo.condition) {
+  //    setTest((prev) => [...prev, selectedGenreTwo]);
+  //  } else {
+  //    setTest((prev) =>
+  //      prev.filter((genre) => genre.id !== selectedGenreTwo.id)
+  //    );
+  //  }
+  //});
 
   return (
     <div className="home_three">
@@ -100,7 +164,14 @@ const SinglePage = () => {
                 const img = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
                 return (
                   <div key={item.id} className="singlepage_two">
-                    <button className="btn_watchlist">Add to Watchlist</button>
+                    <button
+                      onClick={() => {
+                        addToWatchList(item.id);
+                      }}
+                      className="btn_watchlist"
+                    >
+                      Add to Watchlist
+                    </button>
                     <div className="singlepage_three">
                       <img
                         src={item.backdrop_path == null ? movieURLNIN : img}
@@ -109,12 +180,7 @@ const SinglePage = () => {
                     </div>
                     <div className="singlepage_container">
                       <div className="singlepage_four">
-                        <div className="singlepage_play_btn">
-                          <BsFillPlayCircleFill />
-                        </div>
-                        <div className="singlepage_play_btn_mobile">
-                          <button>Play Now</button>
-                        </div>
+                        <BasicModalThree videoID={videoID} />
                         <div className="singlepage_content">
                           <h1>{item.title}</h1>
                           <p>{item.overview}</p>

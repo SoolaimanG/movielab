@@ -8,20 +8,19 @@
 
 .tvpopular_five {
   width: 100%;
-  height: 80%;
 }
 
 .tvpopular_five img {
   width: 100%;
-  height: 80%;
 }
 
 .tvpopular_container {
   position: absolute;
   background: linear-gradient(216deg, #52515130 0%, #252525 100%);
   width: 100%;
-  height: 100%;
+  height: 100vh;
   top: 0;
+  padding-bottom: 1rem;
 }
 
 .tvpopular_six {
@@ -78,18 +77,42 @@
   height: 100vh;
 }
 
+.tvpopular_eight {
+  margin-top: 5rem;
+}
+
+.tvpopular_nine {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1rem;
+}
+
+.tvpopular_ten,
+.tvpopular_ten img {
+  width: 100%;
+  border-radius: 5px;
+  text-align: center;
+}
+
 /* MEdia Query For Mobile and Tab */
 @media (max-width: 768px) and (min-width: 500px) {
   .tvpopular_six {
     padding-left: 2rem;
     padding-top: 7rem;
   }
+
+  .tvpopular_container {
+    height: auto;
+  }
+
+  .tvpopular_eight {
+    margin-top: 10rem;
+  }
 }
 
 @media (max-width: 500px) {
   .tvpopular_six {
-    padding-left: 2rem;
-    padding-top: 7rem;
+    padding: 1rem;
   }
 
   .tvpopular_six h1 {
@@ -102,5 +125,14 @@
 
   .tvpopular_overview {
     width: 16rem;
+  }
+
+  .tvpopular_container {
+    height: auto;
+    position: relative;
+  }
+
+  .tvpopular_eight {
+    margin-top: 2rem;
   }
 }

@@ -7,6 +7,7 @@ const initialState = {
   userGenre: [],
   openModalGenre: false,
   uid: JSON.parse(localStorage.getItem("uid")) || "",
+  key: "",
 };
 
 const allSlice = createSlice({
@@ -45,6 +46,9 @@ const allSlice = createSlice({
     addUID: (state, action) => {
       state.uid = action.payload;
     },
+    setKey: (state, action) => {
+      state.key = action.payload;
+    },
   },
 });
 
@@ -62,5 +66,6 @@ export const {
   clearGenre,
   addUID,
   isMenuOpen,
+  setKey,
 } = allSlice.actions;
 export default allSlice.reducer;

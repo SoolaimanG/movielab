@@ -15,6 +15,7 @@ import ComingSoon from "./Pages/ComingSoon/comingsoon";
 import Support from "./Pages/Support/support";
 import SinglePage from "./Pages/singlePage/singlepage";
 import Tvpopular from "./Pages/TVPopular/tvpopular";
+import Query from "./Pages/Query/query";
 
 const App = () => {
   const condition = useSelector(SelectedAll).condition;
@@ -107,6 +108,14 @@ const App = () => {
           element={
             <Protection>
               <Tvpopular />
+            </Protection>
+          }
+        />
+        <Route
+          path="/query/:type"
+          element={
+            <Protection>
+              <Query />
             </Protection>
           }
         />

@@ -4,10 +4,15 @@ import { CgMenuGridR } from "react-icons/cg";
 import NavbarPic from "../Images/movieLab Navbar Pic.jpg";
 import { useEffect, useState } from "react";
 import { toast, Toaster } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({ setOpenMenu }) => {
   //State for scroll
   const [scroll, setScroll] = useState(false);
+  const [input, setInput] = useState("");
+
+  //USENAVIGATE
+  const navigate = useNavigate();
   //Changing the style of the navbar if the scroll is greater than 10px
   useEffect(() => {
     const handlePageScroll = () => {
@@ -19,8 +24,6 @@ const Navbar = ({ setOpenMenu }) => {
       }
     };
 
-    console.log(scroll);
-
     window.addEventListener("scroll", handlePageScroll);
 
     return () => {
@@ -28,16 +31,34 @@ const Navbar = ({ setOpenMenu }) => {
     };
   });
 
+  const query = (e) => {
+    e.preventDefault();
+    if (input.length < 3) {
+      toast("Come on!You Can't Seacrh Like This", {
+        icon: "🌚",
+      });
+    } else {
+      navigate("/query/" + input);
+    }
+  };
+
   return (
     <div className={scroll ? "navbar_new_style" : "navbar_one"}>
       <Toaster />
       <div className="navbar_two padding">
         <div className="navbar_three">
-          <form className="navbar_form" action="">
+          <form onSubmit={query} className="navbar_form" action="">
             <button type="submit">
               <RiSearchLine />
             </button>
-            <input type="text" placeholder="Search" />
+            <input
+              value={input}
+              onChange={(e) => {
+                setInput(e.target.value);
+              }}
+              type="text"
+              placeholder="Search"
+            />
           </form>
           <div className="navbar_four">
             <button

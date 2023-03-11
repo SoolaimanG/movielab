@@ -1,0 +1,36 @@
+.query_two {
+  height: auto;
+}
+
+.query_three {
+  margin-top: 5rem;
+}
+
+.query_three h2 {
+  font-size: 2.5rem;
+  padding-bottom: 10px;
+}
+
+.query_four {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
+  gap: 1.3rem;
+}
+
+.query_four img {
+  width: 100%;
+  height: 18rem;
+  border-radius: 5px;
+}
+
+.queryErr {
+  height: 100vh;
+}
+
+.queryErrH2 {
+  text-align: center;
+}
+
+.queryLoader {
+  height: 100vh;
+}

@@ -39,7 +39,6 @@ const Home = () => {
     const reponse = await fetch(URL);
     const data = await reponse.json();
     const { results } = data;
-    console.log(results);
     setTvShow(results);
   };
 
@@ -55,7 +54,7 @@ const Home = () => {
 
   //Synchronous Loading to allow everything to settle
   useEffect(() => {
-    const LoadingTimers = [1000, 1000, 1000, 1000, 1000];
+    const LoadingTimers = [1000, 1100, 1200, 1300, 1400];
     const randomSelectTimer = Math.floor(Math.random() * LoadingTimers.length);
     const timer = setTimeout(() => {
       setLoading(false);
@@ -152,7 +151,7 @@ const Home = () => {
                               key={item.id}
                               className="home_thirteen"
                               onClick={() => {
-                                navigate("/moviepage/" + item.id);
+                                navigate("/tvpopular/" + item.id);
                               }}
                             >
                               <img src={img} alt="" />

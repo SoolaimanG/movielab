@@ -1,0 +1,106 @@
+.tvpopular_one {
+  padding-top: 4rem;
+}
+
+.tvpopular_four {
+  position: relative;
+}
+
+.tvpopular_five {
+  width: 100%;
+  height: 80%;
+}
+
+.tvpopular_five img {
+  width: 100%;
+  height: 80%;
+}
+
+.tvpopular_container {
+  position: absolute;
+  background: linear-gradient(216deg, #52515130 0%, #252525 100%);
+  width: 100%;
+  height: 100%;
+  top: 0;
+}
+
+.tvpopular_six {
+  padding-left: 5rem;
+  padding-top: 5rem;
+}
+
+.tvpopular_six h1 {
+  font-size: 3rem;
+}
+
+.tvpopular_six h3 {
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+.tvpopular_seven {
+  margin-top: 1.5rem;
+}
+
+.tvpopular_btn {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.tvpopular_play,
+.tvpopular_add {
+  all: unset;
+  padding: 7px 13px;
+  border-radius: 4px;
+}
+
+.tvpopular_play {
+  background: var(--color-red);
+  padding: 7px 15px;
+}
+
+.tvpopular_add {
+  border: 1.5px solid var(--color-white);
+}
+
+.tvpopular_overview {
+  width: 23rem;
+  margin-top: 2rem;
+}
+
+.tvpopular_overview p {
+  text-align: left;
+}
+
+.tvpopularLoader {
+  height: 100vh;
+}
+
+/* MEdia Query For Mobile and Tab */
+@media (max-width: 768px) and (min-width: 500px) {
+  .tvpopular_six {
+    padding-left: 2rem;
+    padding-top: 7rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .tvpopular_six {
+    padding-left: 2rem;
+    padding-top: 7rem;
+  }
+
+  .tvpopular_six h1 {
+    font-size: 2rem;
+  }
+
+  .tvpopular_six h3 {
+    font-size: 1.3rem;
+  }
+
+  .tvpopular_overview {
+    width: 16rem;
+  }
+}

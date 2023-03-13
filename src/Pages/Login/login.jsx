@@ -22,6 +22,7 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [loadingone, setLoadingone] = useState(false);
   const [popData, setPopData] = useState([]);
+  const [checkLogin, setCheckLogin] = useState(false);
 
   //useSelector
   const isUserLoggedIn = useSelector(SelectedAll).condition;
@@ -77,15 +78,30 @@ const Login = () => {
         console.log(uid, email);
         dispatch(login());
         dispatch(addUID(uid));
-        navigate(`${popData == undefined ? "/genre" : "/home"}`);
         toast.loading("Logging in...");
+        setCheckLogin(true);
       })
       .catch((err) => {
-        setError(true);
         dispatch(logout());
         toast.error(err.message);
+        err.message === "Firebase: Error (auth/internal-error)."
+          ? setError(false)
+          : setError(true);
       });
   };
+
+  useEffect(() => {
+    if (checkLogin) {
+      const timerOut = setTimeout(() => {
+        toast.dismiss();
+        navigate(`${popData == undefined ? "/genre" : "/home"}`);
+      });
+
+      return () => {
+        clearTimeout(timerOut);
+      };
+    }
+  }, [checkLogin]);
 
   useEffect(() => {
     if (isUserLoggedIn) {

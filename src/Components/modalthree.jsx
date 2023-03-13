@@ -38,13 +38,13 @@ function BasicModalThree({ videoID }) {
         setVideoURL(response[0].url);
       })
       .catch((err) => {
-        toast.error(err.message);
+        console.log(err);
       });
   };
 
   //INVOKING THE CALL
   useEffect(() => {
-    //getMovies();
+    getMovies();
   }, [videoID]);
 
   const [open, setOpen] = useState(false);

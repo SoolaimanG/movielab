@@ -9,6 +9,7 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useNavigate } from "react-router-dom";
+import Footer from "../../Components/footer";
 
 const Home = () => {
   //State For Loading
@@ -16,6 +17,7 @@ const Home = () => {
   const [openMenu, setOpenMenu] = useState(false);
   const [storeTrend, setStoreTrend] = useState([]);
   const [tvshow, setTvShow] = useState([]);
+  const [nowPlaying, setNowPlaying] = useState([]);
 
   //Navigation Actions
   const navigate = useNavigate();
@@ -42,10 +44,21 @@ const Home = () => {
     setTvShow(results);
   };
 
+  const nowPlayingREQ = async () => {
+    const response = await fetch(
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US&page=10`
+    );
+    const data = await response.json();
+    const { results } = data;
+    setNowPlaying(results);
+    console.log(results);
+  };
+
   //APIs Calls Here
   useEffect(() => {
     fetchData();
     fetchDataTv();
+    nowPlayingREQ();
 
     return () => {
       console.log("unmounting//Cleanup");
@@ -180,8 +193,31 @@ const Home = () => {
                       </Swiper>
                     </div>
                   </div>
+                  <div className="home_fourteen">
+                    <h2>Now Playing...</h2>
+                    <div className="home_fifteen">
+                      {nowPlaying.map((item) => {
+                        const img = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
+                        return (
+                          <div key={item.id} className="home_sixteen">
+                            <div className="home_seventeen">
+                              <img
+                                onClick={() => {
+                                  navigate("/nowplaying/" + item.id);
+                                }}
+                                src={img}
+                                alt=""
+                              />
+                              <p>{item.original_title}</p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 </div>
               </div>
+              <Footer />
             </div>
           </div>
         )}

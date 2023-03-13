@@ -23,6 +23,7 @@ const Tvpopular = () => {
       emptyArray.push(data);
       setData(emptyArray);
       setLoading(false);
+      console.log(emptyArray);
     } catch (err) {
       console.log(err);
     }
@@ -35,6 +36,7 @@ const Tvpopular = () => {
       );
       const data = await response.json();
       const { episodes } = data;
+      console.log(episodes);
       setEpisodes(episodes);
     } catch (err) {
       console.log(err.message);
@@ -61,7 +63,6 @@ const Tvpopular = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  console.log(img);
   return (
     <div className="home_three">
       <Toaster />
@@ -90,7 +91,7 @@ const Tvpopular = () => {
                             <h3>{seasons[0].name}</h3>
                             <div className="genre_four tvpopular_seven">
                               {genres.map((genre) => {
-                                return <span>{genre.name}</span>;
+                                return <span key={genre.id}>{genre.name}</span>;
                               })}
                             </div>
                             <div className="tvpopular_btn">

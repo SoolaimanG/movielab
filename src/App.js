@@ -16,6 +16,7 @@ import Support from "./Pages/Support/support";
 import SinglePage from "./Pages/singlePage/singlepage";
 import Tvpopular from "./Pages/TVPopular/tvpopular";
 import Query from "./Pages/Query/query";
+import NowPlayingPage from "./Components/nowPlayingPage";
 
 const App = () => {
   const condition = useSelector(SelectedAll).condition;
@@ -116,6 +117,14 @@ const App = () => {
           element={
             <Protection>
               <Query />
+            </Protection>
+          }
+        />
+        <Route
+          path="nowplaying/:id"
+          element={
+            <Protection>
+              <NowPlayingPage />
             </Protection>
           }
         />

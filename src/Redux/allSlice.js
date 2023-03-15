@@ -67,5 +67,6 @@ export const {
   addUID,
   isMenuOpen,
   setKey,
+  updateWatchList,
 } = allSlice.actions;
 export default allSlice.reducer;

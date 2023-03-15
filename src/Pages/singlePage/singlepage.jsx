@@ -10,29 +10,29 @@ import BasicModalThree from "../../Components/modalthree";
 import { doc, setDoc, getDoc } from "firebase/firestore";
 import { SelectedAll } from "../../Redux/allSlice";
 import { db } from "../../Logic/firebase";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 const SinglePage = () => {
-  const params = useParams();
-
   //UID
   const uid = useSelector(SelectedAll).uid;
+  const params = useParams();
+  const dispatch = useDispatch();
 
   //Doc Reference
-  const docRef = doc(db, "watchList", uid);
+  const docRef = doc(db, "watchLists", uid);
 
   //Opening and Closing Menu//Sroring DAta
   const [openMenu, setOpenMenu] = useState(false);
   const [storeData, setStoreData] = useState([]);
   const [genres, setGenres] = useState([]);
-  const [loading, setLoaading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [displayErr, setDisplayErr] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [videoID, setVideoID] = useState("");
   const [watchList, setWatchList] = useState(
-    JSON.parse(localStorage.getItem("watchList")) || []
+    JSON.parse(localStorage.getItem("watchLists")) || []
   );
-  const [test, setTest] = useState([]);
+  const [adding, setAdding] = useState([]);
 
   //DESTRUCTING USE NAVIGATOR
   const navigate = useNavigate();
@@ -48,9 +48,9 @@ const SinglePage = () => {
       emptyArray.push(data);
       setStoreData(emptyArray);
       setGenres(genres);
-      setLoaading(false);
+      setLoading(false);
     } catch (error) {
-      setLoaading(false);
+      setLoading(false);
       toast.error("Oh no!Check your connection");
     }
   };
@@ -65,7 +65,7 @@ const SinglePage = () => {
       const { results } = data;
       setVideoID(results[0].key);
     } catch (error) {
-      toast.error("Oh no!Check your connection");
+      //toast.error("Oh no!Check your connection");
     }
   };
 
@@ -98,16 +98,12 @@ const SinglePage = () => {
     };
   }, [params]);
 
-  useEffect(() => {
-    localStorage.setItem("watchList", JSON.stringify(watchList));
-  });
-
   //INVOKING CALLS
   useEffect(() => {
     const requestCallTimer = setTimeout(() => {
       if (loading) {
         setDisplayErr(true);
-        setLoaading(false);
+        setLoading(false);
       }
     }, 5000);
 
@@ -118,34 +114,42 @@ const SinglePage = () => {
 
   //Add to WatchList
   const addToWatchList = async (id) => {
-    setWatchList((prev) => [...prev, ...storeData]);
-
-    const find = watchList.find((item) => {
-      return item.id === id;
+    const mapped = storeData.find((movie) => {
+      return movie.id === id;
     });
 
-    if (find) {
-      toast.error("Movie Already In WatchList");
+    const docSnap = await getDoc(docRef);
+
+    setAdding(docSnap.data().watchLists);
+
+    setWatchList((prev) => [...prev, mapped, ...adding]);
+
+    const findd = adding.some((movie) => movie.id == params.id);
+
+    if (findd) {
+      toast.error("Already Exists In Watch List");
     } else {
-      toast.success("Added to your watchlist");
-      await setDoc(docRef, {
-        watchLists: watchList.map((item) => {
-          return item;
-        }),
-      });
+      toast.success("Movie added to watchlist");
     }
+
+    localStorage.setItem("watchLists", JSON.stringify(watchList));
   };
 
-  //useEffect(() => {
-  //  const selectedGenreTwo = movieGenre.find((genre) => genre.id === id);
-  //  if (!selectedGenreTwo.condition) {
-  //    setTest((prev) => [...prev, selectedGenreTwo]);
-  //  } else {
-  //    setTest((prev) =>
-  //      prev.filter((genre) => genre.id !== selectedGenreTwo.id)
-  //    );
-  //  }
-  //});
+  useEffect(() => {
+    const uniqueArray = watchList.filter(
+      (obj, index, self) => index === self.findIndex((o) => o.id === obj.id)
+    );
+
+    const findd = adding.some((movie) => movie.id == params.id);
+
+    if (findd) {
+      //toast.error("Already Exists In Watch List");
+    } else {
+      setDoc(doc(db, "watchLists", uid), {
+        watchLists: uniqueArray,
+      });
+    }
+  }, [watchList]);
 
   return (
     <div className="home_three">

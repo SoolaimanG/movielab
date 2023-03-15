@@ -38,7 +38,7 @@ function BasicModalThree({ videoID }) {
         setVideoURL(response[0].url);
       })
       .catch((err) => {
-        console.log(err);
+        //console.log(err);
       });
   };
 

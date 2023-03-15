@@ -1,0 +1,168 @@
+.watchlist_one {
+  margin-top: 4rem;
+}
+
+.watchlist_three h2 {
+  padding: 10px 0px;
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.watchlist_four {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  gap: 1.5rem;
+}
+
+.watchlist_six {
+  width: 100%;
+  height: auto;
+  background: var(--color-black-light);
+  border-radius: 10px;
+}
+
+.watchlist_six img {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.watchlist_seven {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.watchlist_seven h3 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.watchlist_seven p {
+  text-align: left;
+  font-size: 1.1rem;
+}
+
+.watchlist_seven small {
+  font-size: 1.1rem;
+}
+
+.watchlist_eight {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin: -2rem 3rem;
+}
+
+.watchlist_eight svg {
+  font-size: 1.6rem;
+}
+
+.watchlist_delete {
+  all: unset;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-red);
+  border-radius: 50%;
+}
+
+.watchlist_play {
+  all: unset;
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.watchlist_modal_one {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.watchlist_modal_one h3 {
+  text-align: center;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.watchlist_modal_one p {
+  text-align: center;
+  color: var(--color-red);
+  font-weight: 600;
+}
+
+.watchlist_modal_one_btn {
+  width: 100%;
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.cancel_watchlist {
+  border: var(--color-black-light) 1.5px solid;
+  border-radius: 5px;
+}
+
+.delete_watchlist {
+  padding: 10px 20px;
+  border: none;
+  outline: none;
+  background: var(--color-red);
+  color: var(--color-white);
+  border-radius: 5px;
+  font-size: 1.1rem;
+  transition: all 500ms;
+}
+
+.delete_watchlist:hover {
+  transform: translateY(-2px);
+}
+
+.watchlist_loader {
+  height: 100vh;
+}
+
+.notavailable_two {
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.notavailable_two h3 {
+  font-size: 3rem;
+}
+
+.notavailable_two p {
+  font-size: 1.3rem;
+}
+
+.notavailable_two button {
+  all: unset;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+@media (max-width: 767px) {
+  .watchlist_eight {
+    margin: -2.3rem 1rem;
+  }
+}

@@ -206,10 +206,23 @@
 @media (max-width: 500px) {
   .singlepage_one {
     margin-top: -1rem;
+    height: fit-content;
+  }
+
+  .singlepage_three {
+    height: fit-content;
   }
 
   .singlepage_content {
-    width: 16rem;
+    height: fit-content;
+    width: 100%;
+    margin-top: 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+
+  .singlepage_container {
+    position: relative;
   }
 
   .singlepage_content h1 {
@@ -226,10 +239,7 @@
 
   .singlepage_play_btn_mobile {
     display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
     border-radius: 0%;
-    margin-top: 8rem;
     width: 100%;
   }
 
@@ -241,13 +251,7 @@
     flex-direction: column;
     padding: 1rem;
     justify-content: flex-start;
-  }
-
-  .singlepage_content {
-    width: 100%;
-    margin-top: 0.5rem;
     align-items: flex-start;
-    justify-content: flex-start;
   }
 
   .singlepage_play_btn_mobile button {
@@ -259,7 +263,7 @@
   }
 
   .recommendation_one {
-    margin-top: 17rem;
+    margin: auto;
   }
 
   .recommendaion_three {

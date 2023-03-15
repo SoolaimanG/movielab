@@ -1,0 +1,85 @@
+.comingsoon_three {
+  margin-top: 4rem;
+}
+
+.comingsoon_four {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1.3rem;
+  height: 100%;
+}
+
+.comingsoon_five {
+  width: 100%;
+  /*height: 20rem;*/
+  background: #929292;
+  border-radius: 10px;
+}
+
+.comingsoon_six {
+  width: 100%;
+  height: 100%;
+}
+
+.comingsoon_six img {
+  width: 100%;
+  height: 50%;
+  border-radius: 10px 10px 0px 0px;
+}
+
+.comingsoon_seven {
+  z-index: 5;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: relative;
+}
+
+.comingsoon_seven p {
+  text-align: left;
+}
+
+.comingsoon_seven h4 {
+  padding-bottom: 1rem;
+}
+
+.comingsoon_nine {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  gap: 1rem;
+  margin-top: -2rem;
+  margin-right: 0.5rem;
+}
+
+.comingsoon_svg {
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border-radius: 50%;
+}
+
+.comingsoon_cta {
+  all: unset;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 10px 20px;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  cursor: pointer;
+}
+
+.comingsoon_loader {
+  height: 100vh;
+}

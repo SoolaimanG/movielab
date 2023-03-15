@@ -51,7 +51,6 @@ const Home = () => {
     const data = await response.json();
     const { results } = data;
     setNowPlaying(results);
-    console.log(results);
   };
 
   //APIs Calls Here
@@ -117,7 +116,7 @@ const Home = () => {
                             key={item.id}
                             className="home_nine"
                           >
-                            <img src={img} alt="" crossOrigin="false" />
+                            <img src={img} alt="" />
                             <div className="container_gradient">
                               <h3
                                 className={

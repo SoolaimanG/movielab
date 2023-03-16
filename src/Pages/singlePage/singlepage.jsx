@@ -7,7 +7,15 @@ import { toast, Toaster } from "react-hot-toast";
 import movieURLNIN from "../../Images/movieLab noImgURL.avif";
 import { useNavigate } from "react-router-dom";
 import BasicModalThree from "../../Components/modalthree";
-import { doc, setDoc, getDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  getDocs,
+  getDoc,
+  query,
+  collection,
+  where,
+} from "firebase/firestore";
 import { SelectedAll } from "../../Redux/allSlice";
 import { db } from "../../Logic/firebase";
 import { useSelector, useDispatch } from "react-redux";
@@ -29,10 +37,8 @@ const SinglePage = () => {
   const [displayErr, setDisplayErr] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
   const [videoID, setVideoID] = useState("");
-  const [watchList, setWatchList] = useState(
-    JSON.parse(localStorage.getItem("watchLists")) || []
-  );
-  const [adding, setAdding] = useState([]);
+  const [watchList, setWatchList] = useState([]);
+  const [items, setItems] = useState([]);
 
   //DESTRUCTING USE NAVIGATOR
   const navigate = useNavigate();
@@ -112,44 +118,50 @@ const SinglePage = () => {
     };
   }, []);
 
-  //Add to WatchList
+  //  useEffect(() => {
+  //    const fetchData = async () => {
+  //      const emptyArray = [];
+  //      const querySnapshot = await getDoc(docRef);
+  //      const { watchLists } = querySnapshot.data();
+  //
+  //      emptyArray.push(watchLists);
+  //
+  //      const items = emptyArray.map((doc) => doc);
+  //      setItems(items);
+  //    };
+  //
+  //    fetchData();
+  //  }, [params.id]);
+
   const addToWatchList = async (id) => {
-    const mapped = storeData.find((movie) => {
-      return movie.id === id;
+    //IDENTIFING THE ITEM TO ADD
+    const mapped = storeData.map((movie) => {
+      return movie.id == id ? { ...movie } : null;
     });
 
+    //ADDING IT TO AN ARRAY
+    setWatchList((prev) => [...prev, ...mapped]);
+
+    //CHECKING IF AN ITEM ARLEADY EXIST
+    const docRef = doc(db, "watchLists", uid);
     const docSnap = await getDoc(docRef);
+    const { watchLists } = docSnap.data();
 
-    setAdding(docSnap.data().watchLists);
+    const existAlready = watchLists.some((movie) => movie.id == id);
 
-    setWatchList((prev) => [...prev, mapped, ...adding]);
-
-    const findd = adding.some((movie) => movie.id == params.id);
-
-    if (findd) {
-      toast.error("Already Exists In Watch List");
+    if (existAlready) {
+      toast.error("This movie is already in your watchlist");
     } else {
-      toast.success("Movie added to watchlist");
+      const updatedWatchLists = [...watchLists, ...mapped];
+      await setDoc(docRef, { watchLists: updatedWatchLists })
+        .then(() => {
+          toast.success("Movie added to watchlist");
+        })
+        .catch((error) => {
+          toast.error("Error adding movie to watchlist");
+        });
     }
-
-    localStorage.setItem("watchLists", JSON.stringify(watchList));
   };
-
-  useEffect(() => {
-    const uniqueArray = watchList.filter(
-      (obj, index, self) => index === self.findIndex((o) => o.id === obj.id)
-    );
-
-    const findd = adding.some((movie) => movie.id == params.id);
-
-    if (findd) {
-      //toast.error("Already Exists In Watch List");
-    } else {
-      setDoc(doc(db, "watchLists", uid), {
-        watchLists: uniqueArray,
-      });
-    }
-  }, [watchList]);
 
   return (
     <div className="home_three">

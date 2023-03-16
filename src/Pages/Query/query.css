@@ -9,12 +9,14 @@
 .query_three h2 {
   font-size: 2.5rem;
   padding-bottom: 10px;
+  font-weight: 500;
 }
 
 .query_four {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr));
   gap: 1.3rem;
+  height: 100%;
 }
 
 .query_four img {
@@ -33,4 +35,10 @@
 
 .queryLoader {
   height: 100vh;
+}
+
+@media (max-width: 767px) {
+  .query_four {
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+  }
 }

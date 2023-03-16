@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../Components/navbar";
 import Sidebar from "../../Components/sidebar";
-import { doc, getDoc, deleteDoc } from "firebase/firestore";
+import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Logic/firebase";
 import { SelectedAll } from "../../Redux/allSlice";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import "./watchlist.css";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-hot-toast";
 
 const style = {
   position: "absolute",
@@ -27,63 +28,67 @@ const style = {
 const WatchList = () => {
   //FROM LIBRARYS
   const uid = useSelector(SelectedAll).uid;
-  const watchListArr = useSelector(SelectedAll).watchListArr;
   const docRef = doc(db, "watchLists", uid);
-  const [watchList, setWatchList] = useState([]);
-  const [doesNotExist, setDoesNotExist] = useState(false);
 
   //STATES
   const [openMenu, setOpenMenu] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [watchListArr, setWatchListArr] = useState([]);
+  const [doesNotExist, setDoesNotExist] = useState(false);
+  const [id, setId] = useState("");
   const navigate = useNavigate();
 
-  console.log(watchListArr);
-
-  const gettingData = async () => {
-    try {
+  useEffect(() => {
+    const fetchWatchList = async () => {
       const docSnap = await getDoc(docRef);
-      const dataLenght = docSnap.data().watchLists.length > 0;
-      console.log(docSnap.data());
-      console.log(dataLenght);
 
-      if (dataLenght) {
-        const { watchLists } = docSnap.data();
-        setWatchList(watchLists);
+      const { watchLists } = docSnap.data();
+
+      if (watchLists.length > 1) {
+        setWatchListArr(watchLists);
         setLoading(false);
         setDoesNotExist(false);
       } else {
         setLoading(false);
         setDoesNotExist(true);
       }
-    } catch (e) {}
-  };
+    };
 
-  console.log(loading);
+    fetchWatchList();
 
-  useEffect(() => {
-    gettingData();
+    return () => {
+      console.log("unmounting");
+    };
   }, []);
 
   //MODAL FUNCS
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const handleOpen = (id) => {
+    setOpen(true);
+    setId(id);
+  };
   const handleClose = () => setOpen(false);
 
-  const handleDelete = async (id) => {
-    await deleteDoc(doc(db, "watchList", id));
+  const handleDelete = async () => {
+    const filtered = watchListArr.filter((movie) => movie.id !== id);
+
+    await updateDoc(docRef, {
+      watchLists: filtered,
+    })
+      .then(() => {
+        toast.success("Deleted");
+        window.location.reload();
+      })
+      .catch(() => {
+        toast.error("There was a problem deleting this item");
+      });
+    console.log(id);
   };
 
   //MODAL
   function BasicModal(id) {
     return (
       <div>
-        <button
-          onClick={handleOpen}
-          title="Delete"
-          className="watchlist_delete"
-        >
-          <AiFillDelete />
-        </button>
         <Modal
           open={open}
           onClose={handleClose}
@@ -103,7 +108,7 @@ const WatchList = () => {
                 </button>
                 <button
                   onClick={() => {
-                    handleDelete(id);
+                    handleDelete();
                     handleClose();
                   }}
                   className="delete_watchlist"
@@ -123,7 +128,6 @@ const WatchList = () => {
       <Sidebar openMenu={openMenu} />
       <div className="home_four">
         <Navbar setOpenMenu={setOpenMenu} />
-
         <div className="watchlist_one">
           {loading ? (
             <div className="centerLoader watchlist_loader">
@@ -147,9 +151,9 @@ const WatchList = () => {
                 </div>
               ) : (
                 <div className="watchlist_three">
-                  <h2>Here are your saved movies...</h2>
+                  <h2>Here are your saved movie(s)...</h2>
                   <div className="watchlist_four">
-                    {watchList.map((item) => {
+                    {watchListArr?.map((item) => {
                       const img = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
                       return (
                         <div key={item.id} className="watchlist_five">
@@ -165,7 +169,15 @@ const WatchList = () => {
                               <p>{item.overview}</p>
                               <small>Released on: {item.release_date}</small>
                               <div className="watchlist_eight">
-                                {BasicModal(item.id)}
+                                <button
+                                  onClick={() => {
+                                    handleOpen(item.id);
+                                  }}
+                                  title="Delete"
+                                  className="watchlist_delete"
+                                >
+                                  <AiFillDelete />
+                                </button>
                                 <button
                                   onClick={() => {
                                     navigate("/moviepage/" + item.id);
@@ -188,6 +200,7 @@ const WatchList = () => {
           )}
         </div>
       </div>
+      <BasicModal />
     </div>
   );
 };

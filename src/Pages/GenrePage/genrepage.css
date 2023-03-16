@@ -1,0 +1,26 @@
+.genrepage_one {
+  margin-top: 3rem;
+  overflow-x: hidden;
+}
+
+.genrepage_nav {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: nowrap;
+  overflow-x: scroll;
+}
+
+.genrepage_nav_btn {
+  all: unset;
+  gap: 10px;
+  padding: 10px 20px;
+  background: rgba(255, 255, 255, 0.35);
+  -webkit-backdrop-filter: blur(37px);
+  backdrop-filter: blur(37px);
+  border: 1px solid rgba(255, 255, 255, 0.175);
+  border-radius: 7px;
+}
+
+.genrepage_loading {
+  height: 80vh;
+}

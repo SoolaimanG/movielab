@@ -38,7 +38,7 @@ const Sidebar = ({ openMenu }) => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/genrepage"} className="active_style">
+              <NavLink to={"/genrepage/:id"} className="active_style">
                 <AiFillStar />
                 <p>Genre</p>
               </NavLink>

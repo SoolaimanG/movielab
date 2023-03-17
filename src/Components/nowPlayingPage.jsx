@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Navbar from "./navbar";
 import Sidebar from "./sidebar";
+import movieURLNIN from "../Images/movieLab noImgURL.avif";
 
 const NowPlayingPage = () => {
   const params = useParams();
@@ -38,7 +39,10 @@ const NowPlayingPage = () => {
               const img = `https://image.tmdb.org/t/p/w500${item.backdrop_path}`;
               return (
                 <div key={item.id} className="nowplaying_three">
-                  <img src={img} alt="" />
+                  <img
+                    src={item.backdrop_path == null ? movieURLNIN : img}
+                    alt={item.backdrop_path}
+                  />
                   <div className="nowplaying_container">
                     <div className="nowplaying_four">
                       <h2>{item.title}</h2>

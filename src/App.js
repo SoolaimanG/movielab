@@ -49,7 +49,7 @@ const App = () => {
           }
         />
         <Route
-          path="/genrepage"
+          path="/genrepage/:id"
           element={
             <Protection>
               <GenrePage />

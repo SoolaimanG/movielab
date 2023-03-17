@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "../../Components/navbar";
 import Sidebar from "../../Components/sidebar";
-import { doc, getDoc, deleteDoc, updateDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { db } from "../../Logic/firebase";
 import { SelectedAll } from "../../Redux/allSlice";
 import { useSelector } from "react-redux";

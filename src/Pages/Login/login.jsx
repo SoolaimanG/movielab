@@ -12,7 +12,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 import { SelectedAll } from "../../Redux/allSlice";
 import { toast, Toaster } from "react-hot-toast";
 
@@ -80,6 +80,9 @@ const Login = () => {
         dispatch(addUID(uid));
         toast.loading("Logging in...");
         setCheckLogin(true);
+        setDoc(doc(db, "watchLists", uid), {
+          watchLists: [],
+        });
       })
       .catch((err) => {
         dispatch(logout());
@@ -120,6 +123,9 @@ const Login = () => {
         dispatch(login());
         navigate(`${popData ? "/home" : "/genre"}`);
         setLoadingone(false);
+        setDoc(doc(db, "watchLists", uid), {
+          watchLists: [],
+        });
       })
       .catch((err) => {
         toast.error(err.message);

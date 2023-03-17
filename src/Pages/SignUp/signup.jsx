@@ -10,14 +10,15 @@ import { Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
 import { doc, setDoc } from "firebase/firestore";
+import { useDispatch, useSelector } from "react-redux";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { useDispatch } from "react-redux";
 import { login } from "../../Redux/allSlice";
 import { toast, Toaster } from "react-hot-toast";
+import { SelectedAll } from "../../Redux/allSlice";
 
 //Swiper Styles
 import "swiper/css";
@@ -38,6 +39,7 @@ const SignUp = () => {
   //UseDisbatch
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const uid = useSelector(SelectedAll).uid;
 
   //Google Auth
   const provider = new GoogleAuthProvider();
@@ -140,6 +142,9 @@ const SignUp = () => {
         setTimeout(() => {
           toast.dismiss();
         }, 2000);
+        setDoc(doc(db, "watchLists", uid), {
+          watchLists: [],
+        });
       })
       .catch(() => {
         toast.error("Check your connection");

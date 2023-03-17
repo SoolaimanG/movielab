@@ -118,21 +118,6 @@ const SinglePage = () => {
     };
   }, []);
 
-  //  useEffect(() => {
-  //    const fetchData = async () => {
-  //      const emptyArray = [];
-  //      const querySnapshot = await getDoc(docRef);
-  //      const { watchLists } = querySnapshot.data();
-  //
-  //      emptyArray.push(watchLists);
-  //
-  //      const items = emptyArray.map((doc) => doc);
-  //      setItems(items);
-  //    };
-  //
-  //    fetchData();
-  //  }, [params.id]);
-
   const addToWatchList = async (id) => {
     //IDENTIFING THE ITEM TO ADD
     const mapped = storeData.map((movie) => {
@@ -146,6 +131,7 @@ const SinglePage = () => {
     const docRef = doc(db, "watchLists", uid);
     const docSnap = await getDoc(docRef);
     const { watchLists } = docSnap.data();
+    //console.log(watchLists);
 
     const existAlready = watchLists.some((movie) => movie.id == id);
 

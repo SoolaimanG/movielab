@@ -43,6 +43,7 @@ const WatchList = () => {
       const docSnap = await getDoc(docRef);
 
       const { watchLists } = docSnap.data();
+      console.log(watchLists);
 
       if (watchLists.length > 1) {
         setWatchListArr(watchLists);

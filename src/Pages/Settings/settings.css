@@ -1,0 +1,196 @@
+.settings_one {
+  margin-top: 4rem;
+}
+
+/* SETTINGS COMPONENT */
+.settings_comp_one {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.settings_comp_two {
+  width: 80%;
+  height: 2.5rem;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  display: flex;
+  justify-content: space-between;
+  padding: 0.2rem 1rem;
+  border-radius: 10px;
+}
+
+.settings_comp_two button {
+  all: unset;
+  transition: all 500ms;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.settings_comp_two button:hover {
+  background: var(--color-red);
+}
+
+.settings_btn_active {
+  background: var(--color-red);
+}
+
+.settings_gen {
+  height: 100vh;
+}
+
+/* EDIT PAGE */
+.settings_edit_form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.settings_edit_form label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.settings_edit_form label img {
+  width: 7rem;
+  height: 7rem;
+  border-radius: 50%;
+  border: 2px solid var(--color-red);
+}
+
+.settings_edit_form label button {
+  all: unset;
+  padding: 7px 25px;
+  background: var(--color-red);
+  border-radius: 5px;
+  transform: all 500ms;
+}
+
+.settings_edit_form label button:hover {
+  box-shadow: 0 0 0 5px #ff4f4f;
+}
+
+.settings_edit_input {
+  display: none;
+}
+
+.update_profile_settings {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2.5rem;
+}
+
+.update_profile_div {
+  width: 100%;
+}
+
+.update_profile_div label {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+
+.update_profile_div label input {
+  outline: none;
+  width: 100%;
+  height: 2rem;
+  caret-color: #ff4f4f;
+  padding-left: 1rem;
+  border-radius: 5px;
+  border: none;
+}
+
+.update_profile_div label input:focus {
+  border: 1.5px solid #ff4f4f;
+}
+
+.btn_settings_disable {
+  margin-top: 3rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.btn_settings_disable button {
+  all: unset;
+  padding: 10px 25px;
+  background: var(--color-red);
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 500ms;
+}
+
+.btn_settings_disable button:hover {
+  transform: translateY(-5px);
+}
+
+.btn_settings_disable button:disabled {
+  background: #ff4f4f;
+  cursor: not-allowed;
+}
+
+.btn_settings_disable button:disabled,
+.btn_settings_disable button:hover {
+  transform: translateY(0);
+}
+
+/* Settings Page */
+.settings_settings_one {
+  margin-top: 3rem;
+}
+
+.settings_settings_two {
+  width: 100%;
+  border: 1.5px solid var(--color-grey-dark);
+  padding: 0.5rem;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2rem;
+}
+
+.settings_settings_three p {
+  text-align: left;
+}
+
+.settings_settings_four {
+  width: 3rem;
+  height: 1.5rem;
+  background: #ffcdcd;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  transition: all 500ms;
+}
+
+.settings_settings_five {
+  width: 50%;
+  height: 90%;
+  background: var(--color-red);
+  border-radius: 50%;
+  margin: 0rem 0.1rem;
+  transform: translateX(0px);
+  transition: all 500ms;
+  cursor: pointer;
+}
+
+.settings_settings_five_active {
+  transform: translateX(20px);
+}

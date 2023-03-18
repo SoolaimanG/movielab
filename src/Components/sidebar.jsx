@@ -48,7 +48,7 @@ const Sidebar = ({ openMenu }) => {
             <h3>Manage</h3>
             <ul className="sidebar_ul">
               <li>
-                <NavLink to={"/setting"} className="active_style">
+                <NavLink to={"/settings"} className="active_style">
                   <AiFillSetting />
                   <p>Settings</p>
                 </NavLink>

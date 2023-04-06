@@ -24,7 +24,7 @@ body {
 }
 
 .padding {
-  padding: 1rem;
+  padding: 1.5rem;
 }
 
 :root {
@@ -48,6 +48,6 @@ body {
 
 @media (max-width: 767px) {
   .padding {
-    padding: 0.5rem;
+    padding: 0.8rem;
   }
 }

@@ -1,17 +1,42 @@
 import "./genre.css";
 import { movieGenres } from "../../data";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BsFillCheckCircleFill } from "react-icons/bs";
 import BasicModalTwo from "../../Components/modaltwo";
 import { useNavigate } from "react-router-dom";
+import { collection, doc, setDoc } from "firebase/firestore";
+import { SelectedAll } from "../../Redux/allSlice";
+import { useSelector } from "react-redux";
+import { db } from "../../Logic/firebase";
+import { toast } from "react-hot-toast";
 
 const Genre = () => {
   //state for storing user genres
   const [userGenres, setUserGenres] = useState([]);
   const [movieGenre, setMovieGenre] = useState(movieGenres);
+  const uid = useSelector(SelectedAll).uid;
+  const userDetailsGoogle = useSelector(SelectedAll).googleDisplayName;
+  const docRef = collection(db, "users");
 
   //using useNavigate
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      toast.dismiss();
+    }, 5000);
+
+    return () => {
+      clearTimeout(timer);
+    };
+  }, []);
+
+  const skipGenre = async () => {
+    navigate("/home");
+    await setDoc(doc(docRef, uid), {
+      genre: [],
+    });
+  };
 
   //adding highlight to selected genre
   const selectedGenre = (id) => {
@@ -62,12 +87,7 @@ const Genre = () => {
             })}
           </div>
           <div className="genre_five">
-            <button
-              onClick={() => {
-                navigate("/home");
-              }}
-              className="skipgenre"
-            >
+            <button onClick={skipGenre} className="skipgenre">
               Skip
             </button>
             <BasicModalTwo

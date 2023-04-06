@@ -7,15 +7,7 @@ import { toast, Toaster } from "react-hot-toast";
 import movieURLNIN from "../../Images/movieLab noImgURL.avif";
 import { useNavigate } from "react-router-dom";
 import BasicModalThree from "../../Components/modalthree";
-import {
-  doc,
-  setDoc,
-  getDocs,
-  getDoc,
-  query,
-  collection,
-  where,
-} from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { SelectedAll } from "../../Redux/allSlice";
 import { db } from "../../Logic/firebase";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,7 +39,7 @@ const SinglePage = () => {
   const requestCall = async () => {
     try {
       const emptyArray = [];
-      const URL = `https://api.themoviedb.org/3/movie/${params.id}?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US`;
+      const URL = `https://api.themoviedb.org/3/movie/${params.id}?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US`;
       const response = await fetch(URL);
       const data = await response.json();
       const { genres } = data;
@@ -65,7 +57,7 @@ const SinglePage = () => {
   const getMovieVideos = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US`
+        `https://api.themoviedb.org/3/movie/${params.id}/videos?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US`
       );
       const data = await response.json();
       const { results } = data;
@@ -78,7 +70,7 @@ const SinglePage = () => {
   //Movie Recommendations
   const movieRecommendations = async () => {
     try {
-      const URL = `https://api.themoviedb.org/3/movie/${params.id}/recommendations?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US&page=1`;
+      const URL = `https://api.themoviedb.org/3/movie/${params.id}/recommendations?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&page=1`;
       const response = await fetch(URL);
       const data = await response.json();
       const { results } = data;

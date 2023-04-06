@@ -14,7 +14,7 @@ const Query = () => {
   const getMultiSearch = async () => {
     try {
       const response = await fetch(`
-   https://api.themoviedb.org/3/search/multi?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US&query=${params.type}&page=1&include_adult=false`);
+   https://api.themoviedb.org/3/search/multi?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&query=${params.type}&page=1&include_adult=false`);
 
       const data = await response.json();
       const { results } = data;

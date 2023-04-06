@@ -1,0 +1,183 @@
+.review_one {
+  margin-top: 5rem;
+  width: 100%;
+  border-radius: 5px;
+  gap: 1.5rem;
+}
+
+.review_three {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.review_head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-black-light);
+  width: fit-content;
+  margin: auto;
+  border-radius: 5px;
+}
+
+.ButtonReview {
+  all: unset;
+  width: fit-content;
+  height: 1.5rem;
+  width: fit-content;
+  padding: 7px 15px;
+  border-radius: 5px;
+  transition: all 500ms;
+}
+
+.isActiveButtonReview {
+  background: var(--color-red);
+  color: var(--color-white);
+}
+
+/* ==================CONTACT CREATOR STYLES=================== */
+.contactCreator_form {
+  width: 27rem;
+  padding: 1rem;
+  background: var(--color-black-light);
+}
+
+.contactCreator_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.contactCreator_head h2 {
+  font-weight: 500;
+}
+
+.contactCreator_input_sub {
+  display: flex;
+  margin-top: 1rem;
+  gap: 10px;
+}
+
+.review_label_div {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.contactCreator_input_sub_label input {
+  all: unset;
+  border-bottom: 1.5px solid var(--color-red);
+  background: transparent;
+  width: 100%;
+  height: 24px;
+  caret-color: var(--color-red);
+  color: var(--color-white);
+}
+
+.review_textArea {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+}
+
+.review_textArea textarea {
+  border: 1.5px solid var(--color-red);
+  outline: none;
+  background: transparent;
+  resize: none;
+  border-radius: 5px;
+  padding: 0.5rem 0.5rem;
+  caret-color: red;
+  color: var(--color-white);
+}
+
+.sendMessage_button_review {
+  all: unset;
+  width: 100%;
+  padding: 10px 0px;
+  background: var(--color-red);
+  text-align: center;
+  margin-top: 2rem;
+  border-radius: 10px;
+  transition: all 500ms;
+}
+
+.sendMessage_button_review:hover {
+  transform: translateY(-3px);
+}
+
+/* ==================REPORT BUG STYLES=================== */
+.reportBug {
+  width: 27rem;
+  padding: 1rem;
+  background: var(--color-black-light);
+}
+
+.reportBug_head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.reportBug_head h2 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+.reportBug_label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-top: 1.3rem;
+}
+
+.reportBug_label label {
+  display: flex;
+  flex-direction: column;
+}
+
+.reportBug_label label input {
+  border: none;
+  outline: none;
+  height: 2rem;
+  border-radius: 5px;
+  padding-left: 0.5rem;
+}
+
+.reportBug_btn {
+  margin-top: 2rem;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.reportBug_btn_cta {
+  padding: 7px 20px;
+  background: var(--color-red);
+  border-radius: 5px;
+  color: var(--color-white);
+  outline: none;
+  border: none;
+}
+
+/* =================MEDIA QUERY=================== */
+@media (max-width: 767px) {
+  .contactCreator_form,
+  .reportBug {
+    width: 22rem;
+    padding: 0.7rem;
+  }
+
+  .contactCreator_head,
+  .reportBug_head {
+    flex-direction: column-reverse;
+    gap: 0.4rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}

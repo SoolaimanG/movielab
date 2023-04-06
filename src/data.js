@@ -54,7 +54,7 @@ export const movieGenres = [
     emoji: "🧙‍♂️🔮🏰🐉",
   },
   {
-    id: 35,
+    id: 36,
     name: "History",
     condition: false,
     emoji: "🏰🏛️🏯📜",
@@ -106,5 +106,28 @@ export const movieGenres = [
     name: "Western",
     condition: false,
     emoji: "🤠🌵🐴🔫",
+  },
+];
+
+export const socialLinks = [
+  {
+    id: 1,
+    social: "https://instagram.com/_____soolaiman.g?igshid=YmMyMTA2M2Y=",
+    type: "Instagram",
+  },
+  {
+    id: 2,
+    social: "https://twitter.com/SoolaimanG?s=21&t=ovd0KZUXsLIVY7XYgP-upQ",
+    type: "Twitter",
+  },
+  {
+    id: 3,
+    social: "https://www.tiktok.com/@gee_codes?_t=8bEtbyEZMAw&_r=1",
+    type: "Tiktok",
+  },
+  {
+    id: 4,
+    social: "https://github.com/SoolaimanG",
+    type: "Github",
   },
 ];

@@ -8,6 +8,7 @@ const initialState = {
   openModalGenre: false,
   uid: JSON.parse(localStorage.getItem("uid")) || "",
   key: "",
+  movieLabProfile: JSON.parse(localStorage.getItem("movieLabProfile")) || "",
 };
 
 const allSlice = createSlice({
@@ -49,6 +50,9 @@ const allSlice = createSlice({
     setKey: (state, action) => {
       state.key = action.payload;
     },
+    updateMovieLabProfile: (state, action) => {
+      state.movieLabProfile = action.payload;
+    },
   },
 });
 
@@ -68,5 +72,6 @@ export const {
   isMenuOpen,
   setKey,
   updateWatchList,
+  updateMovieLabProfile,
 } = allSlice.actions;
 export default allSlice.reducer;

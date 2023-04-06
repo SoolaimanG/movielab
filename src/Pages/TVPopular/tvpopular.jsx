@@ -18,7 +18,7 @@ const Tvpopular = () => {
     const emptyArray = [];
     try {
       const response = await fetch(`
-      https://api.themoviedb.org/3/tv/${params.id}?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US`);
+      https://api.themoviedb.org/3/tv/${params.id}?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US`);
       const data = await response.json();
       emptyArray.push(data);
       setData(emptyArray);
@@ -32,7 +32,7 @@ const Tvpopular = () => {
   const episodesGroup = async () => {
     try {
       const response = await fetch(
-        `https://api.themoviedb.org/3/tv/${params.id}/season/1?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US`
+        `https://api.themoviedb.org/3/tv/${params.id}/season/1?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US`
       );
       const data = await response.json();
       const { episodes } = data;

@@ -26,8 +26,6 @@ const ComingSoon = () => {
     setLoading(false);
   };
 
-  console.log(datas);
-
   //Invoking Call
   useEffect(() => {
     getUpcoming();

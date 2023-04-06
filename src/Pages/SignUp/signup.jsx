@@ -9,14 +9,14 @@ import Cinema from "../../Images/movieLab cinema.svg";
 import { Pagination, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useEffect, useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
+import { doc, setDoc, getDoc } from "firebase/firestore";
 import { useDispatch, useSelector } from "react-redux";
 import {
   signInWithPopup,
   GoogleAuthProvider,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
-import { login } from "../../Redux/allSlice";
+import { addUID, login } from "../../Redux/allSlice";
 import { toast, Toaster } from "react-hot-toast";
 import { SelectedAll } from "../../Redux/allSlice";
 
@@ -40,6 +40,10 @@ const SignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const uid = useSelector(SelectedAll).uid;
+  //const userDetailsGoogle = useSelector(SelectedAll).googleDisplayName;
+  const docRef = doc(db, "users", uid);
+
+  //console.log(userDetailsGoogle);
 
   //Google Auth
   const provider = new GoogleAuthProvider();
@@ -98,8 +102,10 @@ const SignUp = () => {
   }, [password, username]);
 
   //creating new Account
-  const createAccount = (e) => {
+  const createAccount = async (e) => {
     e.preventDefault();
+    const SettingsRef = doc(db, "userSettings", uid);
+    const settingsSnap = await getDoc(SettingsRef);
 
     //Fnction from firebase
     if (disabled) {
@@ -108,18 +114,32 @@ const SignUp = () => {
           // Signed in
           const user = userCredential.user;
           const { email, uid } = user;
+          dispatch(addUID(uid));
 
           //settting doc
-          const docRef = doc(db, "users", uid);
+          const docRef = doc(db, "usersInfo", uid);
           setDoc(docRef, {
-            displayname: username,
+            displayName: username,
             email: email,
+            photoURL: "",
           });
+
+          //Handling Events
           setAcctCreated(true);
           toast.success("Account Created");
           setEmailActive(false);
+
+          //Enabling notifications
+          if (settingsSnap.exists()) {
+            const { enableNotifications } = settingsSnap.data();
+          } else {
+            setDoc(SettingsRef, {
+              enableNotifications: false,
+            });
+          }
         })
         .catch((error) => {
+          //Error Message
           setEmailActive(
             error.message === "Firebase: Error (auth/email-already-in-use)."
           );
@@ -131,22 +151,58 @@ const SignUp = () => {
   };
 
   //Signin or Login with Google
-  const signInWithGoogle = () => {
+  const signInWithGoogle = async () => {
+    const SettingsRef = doc(db, "userSettings", uid);
+    const userDetails = [];
+    //!DocRefrence
+    const docSnap = await getDoc(docRef);
+    const settingsSnap = await getDoc(SettingsRef);
+
+    //Google Popup
     signInWithPopup(auth, provider)
       .then((result) => {
+        //GOOGLE POPUP
         const credential = GoogleAuthProvider.credentialFromResult(result);
         const token = credential.accessToken;
         const user = result.user;
+        const { displayName, photoURL, email } = user;
+        userDetails.push(displayName, photoURL, email);
+
+        //USERS INFOS
+        const docRef = doc(db, "usersInfo", uid);
+        setDoc(docRef, {
+          displayName: displayName,
+          email: email,
+          photoURL: photoURL,
+        });
+
+        //Navigator
         dispatch(login());
         navigate("/genre");
         setTimeout(() => {
           toast.dismiss();
         }, 2000);
-        setDoc(doc(db, "watchLists", uid), {
-          watchLists: [],
-        });
+
+        //Enabling Real Time Notifications
+        if (settingsSnap.exists()) {
+          const { enableNotifications } = docSnap.data();
+        } else {
+          setDoc(SettingsRef, {
+            enableNotifications: false,
+          });
+        }
+
+        //Check if watchLists already exists
+        if (docSnap.exists()) {
+          const { watchLists } = docSnap.data();
+        } else {
+          setDoc(doc(db, "watchLists", uid), {
+            watchLists: [],
+          });
+        }
       })
       .catch(() => {
+        //Error Message
         toast.error("Check your connection");
         toast.dismiss();
       });

@@ -23,7 +23,7 @@
   border-radius: 10px;
 }
 
-.settings_comp_two button {
+.settings_comp_two_button {
   all: unset;
   transition: all 500ms;
   width: fit-content;
@@ -31,7 +31,7 @@
   border-radius: 5px;
 }
 
-.settings_comp_two button:hover {
+.settings_comp_two_btn_isActive {
   background: var(--color-red);
 }
 
@@ -74,6 +74,11 @@
   background: var(--color-red);
   border-radius: 5px;
   transform: all 500ms;
+}
+
+.settings_edit_form label button:disabled {
+  background: #ff4f4f;
+  cursor: not-allowed;
 }
 
 .settings_edit_form label button:hover {
@@ -193,4 +198,28 @@
 
 .settings_settings_five_active {
   transform: translateX(20px);
+}
+
+/* ====================Media Query============== */
+@media (max-width: 767px) and (min-width: 350px) {
+  .settings_comp_two {
+    width: 100%;
+    height: 3rem;
+  }
+
+  .settings_settings_three {
+    width: 80%;
+  }
+}
+
+@media (max-width: 320px) {
+  .settings_comp_two {
+    width: 100%;
+    height: fit-content;
+    text-align: center;
+  }
+
+  .settings_settings_three {
+    width: 80%;
+  }
 }

@@ -19,9 +19,11 @@ const GenrePage = () => {
   const [genreData, setGenreData] = useState([]);
   const [datas, setDatas] = useState([]);
   const [watchList, setWatchList] = useState([]);
+  const [genreExist, setGenreExist] = useState([]);
 
   //DOCUMENT REFS
   const docRef = doc(db, "users", uid);
+  console.log(uid);
 
   //!React-Rounter-Dom-Tools
   const navigate = useNavigate();
@@ -29,13 +31,21 @@ const GenrePage = () => {
 
   useEffect(() => {
     const getGenres = async () => {
-      const docSnap = await getDoc(docRef);
-      const { genres } = docSnap.data();
-      genres.length > 1
-        ? setLoading(false)
-        : setSecLoading(true) || setLoading(false);
-      console.log(genres);
-      setGenreData(genres);
+      try {
+        const docSnap = await getDoc(docRef);
+        const { genres } = docSnap.data();
+        if (genres === undefined) {
+          setTimeout(() => {
+            setLoading(false);
+            setSecLoading(true);
+          }, 2000);
+        } else {
+          setGenreData(genres);
+          setLoading(false);
+        }
+      } catch (error) {
+        console.log(error);
+      }
     };
 
     getGenres();
@@ -68,8 +78,6 @@ const GenrePage = () => {
     const mapped = datas.find((movie) => {
       return movie.id == id ? { ...movie } : null;
     });
-
-    //console.log(mapped);
 
     //ADDING IT TO AN ARRAY
     setWatchList((prev) => [...prev, mapped]);
@@ -150,7 +158,14 @@ const GenrePage = () => {
                             return (
                               <div key={genre.id} className="genrepage_seven">
                                 <div className="genrepage_eight">
-                                  <img src={img} alt="" />
+                                  <img
+                                    src={
+                                      genre.backdrop_path === null
+                                        ? "https://th.bing.com/th?id=OIP.LBrURpW4-n2I6HJ_otlg-AHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
+                                        : img
+                                    }
+                                    alt=""
+                                  />
                                   <button
                                     onClick={() => {
                                       addToWatchList(genre.id);

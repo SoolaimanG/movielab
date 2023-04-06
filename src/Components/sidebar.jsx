@@ -1,17 +1,28 @@
 import Logo from "../Components/logo";
 import { NavLink } from "react-router-dom";
 import { AiFillHome, AiFillStar, AiFillSetting } from "react-icons/ai";
-import {
-  MdOutlineTimer,
-  MdOutlineReviews,
-  MdArrowBackIosNew,
-} from "react-icons/md";
+import { MdOutlineTimer, MdOutlineReviews } from "react-icons/md";
 import { BsFillBookmarkFill } from "react-icons/bs";
 import { BiDonateHeart } from "react-icons/bi";
+import { RxExit } from "react-icons/rx";
+import { useDispatch } from "react-redux";
+import { logout } from "../Redux/allSlice";
+import { toast, Toaster } from "react-hot-toast";
 
 const Sidebar = ({ openMenu }) => {
+  //UseDIspatch
+  const dispatch = useDispatch();
+  //SignOut
+  const signOut = () => {
+    toast.loading("Logging Out");
+    setTimeout(() => {
+      dispatch(logout());
+    }, 3000);
+  };
+
   return (
     <div className={openMenu ? "sidebar_open" : "sidebar_one"}>
+      <Toaster />
       <div className="sidebar_two padding">
         <div className="sidebar_logo">
           <Logo />
@@ -64,6 +75,17 @@ const Sidebar = ({ openMenu }) => {
                   <BiDonateHeart />
                   <p>Support</p>
                 </NavLink>
+              </li>
+              <li>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onClick={signOut}
+                  to={"/support"}
+                  className="active_style"
+                >
+                  <RxExit />
+                  <p>LogOut</p>
+                </div>
               </li>
             </ul>
           </div>

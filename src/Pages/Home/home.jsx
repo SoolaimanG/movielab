@@ -10,6 +10,11 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../Components/footer";
+import { toast } from "react-hot-toast";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "../../Logic/firebase";
+import { useSelector } from "react-redux";
+import { SelectedAll } from "../../Redux/allSlice";
 
 const Home = () => {
   //State For Loading
@@ -19,6 +24,8 @@ const Home = () => {
   const [tvshow, setTvShow] = useState([]);
   const [nowPlaying, setNowPlaying] = useState([]);
 
+  const uid = useSelector(SelectedAll).uid;
+
   //Navigation Actions
   const navigate = useNavigate();
 
@@ -26,7 +33,7 @@ const Home = () => {
   const fetchData = async () => {
     const emptyArray = [];
     const response = await fetch(
-      "https://api.themoviedb.org/3/trending/movie/day?api_key=8d876fa3a55e224dfafe5aa02f1d97da"
+      `https://api.themoviedb.org/3/trending/movie/day?api_key=${process.env.REACT_APP_TMDB_APIKEY}`
     );
     const data = await response.json();
     const { results } = data;
@@ -37,7 +44,7 @@ const Home = () => {
   };
 
   const fetchDataTv = async () => {
-    const URL = `https://api.themoviedb.org/3/tv/popular?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US&page=1`;
+    const URL = `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&page=1`;
     const reponse = await fetch(URL);
     const data = await reponse.json();
     const { results } = data;
@@ -46,7 +53,7 @@ const Home = () => {
 
   const nowPlayingREQ = async () => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=8d876fa3a55e224dfafe5aa02f1d97da&language=en-US&page=10`
+      `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_APIKEY}&language=en-US&page=10`
     );
     const data = await response.json();
     const { results } = data;
@@ -58,6 +65,7 @@ const Home = () => {
     fetchData();
     fetchDataTv();
     nowPlayingREQ();
+    toast.dismiss();
 
     return () => {
       console.log("unmounting//Cleanup");
@@ -66,14 +74,23 @@ const Home = () => {
 
   //Synchronous Loading to allow everything to settle
   useEffect(() => {
-    const LoadingTimers = [1000, 1100, 1200, 1300, 1400];
+    const LoadingTimers = [1500, 2000, 2500, 3000, 3500];
     const randomSelectTimer = Math.floor(Math.random() * LoadingTimers.length);
     const timer = setTimeout(() => {
       setLoading(false);
     }, LoadingTimers[randomSelectTimer]);
 
+    const setTimer = setTimeout(async () => {
+      //Getting Name from FIrebase
+      const docRef = doc(db, "usersInfo", uid);
+      const docSnap = await getDoc(docRef);
+      const { displayName } = docSnap.data();
+      localStorage.setItem("displayName", JSON.stringify(displayName));
+    }, [LoadingTimers[randomSelectTimer]]);
+
     return () => {
       clearTimeout(timer);
+      clearTimeout(setTimer);
     };
   }, []);
 
@@ -136,7 +153,6 @@ const Home = () => {
                                 Watch Now
                               </button>
                             </div>
-                            {/*<div className="home_ten"></div>*/}
                           </SwiperSlide>
                         );
                       })}
@@ -204,7 +220,11 @@ const Home = () => {
                                 onClick={() => {
                                   navigate("/nowplaying/" + item.id);
                                 }}
-                                src={img}
+                                src={
+                                  item.backdrop_path === null
+                                    ? "https://th.bing.com/th?id=OIP.LBrURpW4-n2I6HJ_otlg-AHaHa&w=250&h=250&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
+                                    : img
+                                }
                                 alt=""
                               />
                               <p>{item.original_title}</p>

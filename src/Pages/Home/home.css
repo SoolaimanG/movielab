@@ -163,6 +163,7 @@
 .home_fifteen img {
   width: 100%;
   border-radius: 5px;
+  height: 13rem;
 }
 
 /* FOOTER */
@@ -433,6 +434,40 @@
   z-index: 99;
   background: var(--color-black-light);
   transition: all 500ms;
+}
+
+.bell_notifications {
+  position: relative;
+}
+
+.notification_image {
+  padding: 0.5rem;
+  background: var(--color-grey);
+  border-radius: 50%;
+}
+
+.notification_image img {
+  border-radius: 50%;
+}
+
+.new_notification {
+  position: absolute;
+  width: 15rem;
+  height: 15rem;
+  background: #666666;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 1.2rem;
+  border-radius: 10px;
+  margin-right: 5rem;
+}
+
+.new_notification h3 {
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 
 /* MEDIA QUERY FOR TABS */

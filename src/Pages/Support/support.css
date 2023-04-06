@@ -1,0 +1,263 @@
+.support_one {
+  position: relative;
+}
+
+.support_two {
+  margin-top: 5rem;
+}
+
+.support_two h2 {
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.social_one {
+  margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  flex: 1;
+}
+
+.social_one p {
+  color: var(--color-white);
+  padding: 0.5rem;
+  background: var(--color-black-light);
+  border-radius: 1rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.socialLinks {
+  display: flex;
+}
+
+.socailLink_href {
+  color: var(--color-white);
+  padding: 0.5rem;
+  background: var(--color-black-light);
+  border-radius: 1rem;
+  width: fit-content;
+  cursor: pointer;
+}
+
+.socialLink_content {
+  flex: 1;
+  padding: 0.5rem;
+  background: var(--color-black-light);
+  color: var(--color-white);
+  height: 75vh;
+  overflow-y: scroll;
+  border-radius: 7px;
+}
+
+.socialLink_content p {
+  text-align: left;
+}
+
+/* ===============MODAL STYLING================= */
+.bankDetailsBTN {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.bankCTA {
+  all: unset;
+  padding: 10px 20px;
+}
+
+.isBankCtaActive {
+  border-bottom: var(--color-red) 1.5px solid;
+}
+
+.bankDetails_body_content {
+  margin-top: 1.5rem;
+}
+
+.sent_div {
+  width: 100%;
+  position: relative;
+  border: 1.4px solid var(--color-red);
+  margin-top: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+}
+
+.bankDetails_sent {
+  border: none;
+  outline: none;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  margin-top: -0.2rem;
+  margin-right: 0.3rem;
+  transition: all 500ms;
+  background: var(--color-black-light);
+  color: var(--color-white);
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
+.bankDetails_sent:hover {
+  margin-top: 0rem;
+  margin-right: 0rem;
+}
+
+.bitcoin_one h3 {
+  font-weight: 500;
+  font-size: 1rem;
+  margin-top: 0.4rem;
+}
+
+.Address_crypto {
+  display: flex;
+  align-items: center;
+  width: fit-content;
+  background: transparent;
+  border: 1px solid var(--color-black-light);
+  gap: 0.5rem;
+}
+
+.Address_crypto small {
+  padding: 0.3rem;
+}
+
+.Address_crypto button {
+  all: unset;
+  background: var(--color-black-light);
+  color: var(--color-white);
+  padding: 0.3rem;
+}
+
+.buy_me_coffee {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  margin-right: 2rem;
+  -webkit-animation: bounce-top 3s steps(1, start) 2s infinite both;
+  animation: bounce-top 3s steps(1, start) 2s infinite both;
+}
+
+@-webkit-keyframes bounce-top {
+  0% {
+    -webkit-transform: translateY(-45px);
+    transform: translateY(-45px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    -webkit-transform: translateY(-24px);
+    transform: translateY(-24px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  65% {
+    -webkit-transform: translateY(-12px);
+    transform: translateY(-12px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  82% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+@keyframes bounce-top {
+  0% {
+    -webkit-transform: translateY(-45px);
+    transform: translateY(-45px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+    opacity: 1;
+  }
+  24% {
+    opacity: 1;
+  }
+  40% {
+    -webkit-transform: translateY(-24px);
+    transform: translateY(-24px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  65% {
+    -webkit-transform: translateY(-12px);
+    transform: translateY(-12px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  82% {
+    -webkit-transform: translateY(-6px);
+    transform: translateY(-6px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  93% {
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
+    -webkit-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+  25%,
+  55%,
+  75%,
+  87% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+  100% {
+    -webkit-transform: translateY(0);
+    transform: translateY(0);
+    -webkit-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+    opacity: 1;
+  }
+}
+
+.buy_me_coffee a img {
+  border-radius: 50%;
+}
+
+/* ==============MEDIA QUERY=================== */
+
+@media (max-width: 767px) {
+  .socialLinks {
+    flex-direction: column-reverse;
+    gap: 1rem;
+  }
+}

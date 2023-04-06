@@ -24,7 +24,7 @@ function BasicModalThree({ videoID }) {
     const options = {
       method: "GET",
       headers: {
-        "X-RapidAPI-Key": "2628430868msha458838465f332fp14cf7djsn7696ae8601c9",
+        "X-RapidAPI-Key": process.env.REACT_APP_YOUTUBE_V2,
         "X-RapidAPI-Host": "youtube-v2.p.rapidapi.com",
       },
     };

@@ -45,7 +45,7 @@ const WatchList = () => {
       const { watchLists } = docSnap.data();
       console.log(watchLists);
 
-      if (watchLists.length > 1) {
+      if (watchLists.length >= 1) {
         setWatchListArr(watchLists);
         setLoading(false);
         setDoesNotExist(false);
